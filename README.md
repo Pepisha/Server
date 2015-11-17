@@ -11,5 +11,12 @@ Serveur de l'aplication Find Yours Pets.
 ### Login 
 - url : http://domaine.com/login
 - paramètres : nickname, password
-- forme réponse : {'connectionResult' => [true]/[false]}
+- forme réponse : {'success' => [true]/[false]}
+
+### Register
+- url : http://domaine.com/register
+- paramètres : nickname, password1, password2, mail, phone, firstname, lastname
+- forme réponse : {'success' => [true] / [false], 'erreur' => 'type de l'erreur'}
+
+
 
