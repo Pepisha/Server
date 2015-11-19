@@ -1,16 +1,14 @@
 <?php
 require_once("Rest.inc.php");
 require_once("dbManager/DbManager.php");
+require_once("models/User.php");
 
 class API extends REST {
 
     public $data = "";
 
-    private $db = NULL;
-
     public function __construct() {
         parent::__construct();
-        $db = DbManager::getPDO();
     }
 
     public function processApi() {
@@ -31,22 +29,41 @@ class API extends REST {
     }
 
     private function login() {
-        if ($this->get_request_method() != "POST") {
-            $this->response('', 406);
-        }
+        $this->checkIfPostRequest();
 
         $nickname = $this->_request['nickname'];
         $password = $this->_request['password'];
 
         if (!empty($nickname) && !empty($password)) {
-            $query = "SELECT login FROM User WHERE nickaname='".$nickname."' AND password='".$password."';";
-            $res = $db->query($query);
-
-            $this->response($this->json(array("connectionResult" => $res->fetch())), 200);
+            $connectionResult = User::canUserLogin($nickname, $password);
+            $this->response($this->json(array("success" => $connectionResult)), 200);
         }
 
-        $error = array("status" => "Failed", "msg" => "Invalid nickname or password");
+        $error = array("success" => false);
         $this->response($this->json($error), 400);
+    }
+
+
+    private function register() {
+      $this->checkIfPostRequest();
+
+      $user = User::registerIfPossible($this->_request['nickname'],$this->_request['password1'],$this->_request['password2'],
+                       $this->_request['mail'], $this->_request['phone'], $this->_request['firstname'],
+                       $this->_request['lastname']);
+
+      if($user.gettype()==="string"){ //Il y a eu une erreur à la création
+        $response = ['success' => false, 'error' => $user];
+      }
+      else{
+        $response = ['success' => true];
+      }
+      $this->response($this->json($response),200);
+    }
+
+    private function checkIfPostRequest(){
+      if ($this->get_request_method() != "POST") {
+          $this->response('', 406);
+      }
     }
 }
 

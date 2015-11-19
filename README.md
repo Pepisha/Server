@@ -1,6 +1,6 @@
 # Server
 
-Serveur de l'aplication Find Yours Pets. 
+Serveur de l'aplication Find Yours Pets.
 
 ## Spécifications techniques
 - Serveur PHP
@@ -8,7 +8,7 @@ Serveur de l'aplication Find Yours Pets.
 - Echange de données via JSON
 
 ## Protocole d'échange
-### Login 
+### Login
 - url : http://domaine.com/login
 - paramètres : nickname, password
 - forme réponse : {'success' => [true]/[false]}
@@ -16,7 +16,4 @@ Serveur de l'aplication Find Yours Pets.
 ### Register
 - url : http://domaine.com/register
 - paramètres : nickname, password1, password2, mail, phone, firstname, lastname
-- forme réponse : {'success' => [true] / [false], 'erreur' => 'type de l'erreur'}
-
-
-
+- forme réponse : {'success' => [true] / [false], 'error' => 'message erreur'}
