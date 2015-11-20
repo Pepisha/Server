@@ -9,11 +9,11 @@ Serveur de l'aplication Find Yours Pets.
 
 ## Protocole d'échange
 ### Login
-- url : http://domaine.com/login
-- paramètres : nickname, password
+- url : http://domaine.com/index.php
+- paramètres : nickname, password, page=login
 - forme réponse : {'success' => [true]/[false]}
 
 ### Register
-- url : http://domaine.com/register
-- paramètres : nickname, password1, password2, mail, phone, firstname, lastname
+- url : http://domaine.com/
+- paramètres : nickname, password1, password2, mail, phone, firstname, lastname, page=register
 - forme réponse : {'success' => [true] / [false], 'error' => 'message erreur'}
