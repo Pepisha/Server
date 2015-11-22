@@ -42,7 +42,7 @@ private $lastname;
       $db = DbManager::getPDO();
       $query = "SELECT nickname FROM User WHERE nickname='".$nickname."' AND password='".$password."';";
       $result = $db->query($query)->fetch();
-      return $result['nickname']===$nickname;
+      return !empty($result);
   }
 
 
