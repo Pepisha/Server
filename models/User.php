@@ -53,14 +53,16 @@ private $lastname;
     if(!empty($nickname) && !empty($password1) && !empty($password2)
       && !empty($mail) && !empty($phone) && !empty($firstname) && !empty($lastname)){
       if($password1===$password2){
-        if(!isUserExistInDataBase($nickname)){
-          return addUserInDataBase($nickname, $password1, $mail, $phone, $firstname, $lastname);
+        if(!User::isUserExistInDataBase($nickname)){
+          return User::addUserInDataBase($nickname, $password1, $mail, $phone, $firstname, $lastname);
         } else {
           return "User already exist";
         }
       } else{
         return "Passwords differents";
       }
+    } else {
+      return "Empty required value(s)";
     }
   }
 
@@ -69,11 +71,12 @@ private $lastname;
    */
   public static function addUserInDataBase($nickname, $password, $mail, $phone, $firstname, $lastname){
     $db = DbManager::getPDO();
-    $query="INSERT INTO User(nickname, password, mail, phone, firstname, lastname) VALUES"
+    $query="INSERT INTO User(nickname, password, email, phone, firstname, lastname) VALUES ("
             ."'".$nickname."','".$password."','".$mail."','"
-            .$phone."','".$firstname."','".$lastname."';";
+            .$phone."','".$firstname."','".$lastname."');";
+
     $db->query($query);
-    return new User($nickname);
+   return new User($nickname);
   }
 }
 ?>
