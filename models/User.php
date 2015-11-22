@@ -30,19 +30,18 @@ private $lastname;
   public static function isUserExistInDataBase($nickname){
       $db = DbManager::getPDO();
       $query = "SELECT nickname FROM User WHERE nickname='".$nickname."';";
-      $res = $db->query($query);
-      $result=$res->fetch();
+      $res = $db->query($query)->fetch();
       return $result['nickname']===$nickname;
   }
 
   /**
    * @return true si le nickname et le password sont bons, false sinon.
    */
-  public static function canUserLogin($nickaname, $password){
+  public static function canUserLogin($nickname, $password){
       $db = DbManager::getPDO();
       $query = "SELECT nickname FROM User WHERE nickname='".$nickname."' AND password='".$password."';";
       $result = $db->query($query)->fetch();
-      return !empty($result);
+      return $result['nickname']===$nickname;
   }
 
 
