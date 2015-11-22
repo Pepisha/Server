@@ -10,31 +10,31 @@ Serveur de l'aplication Find Yours Pets.
 ## Protocole d'échange
 - url : http://domaine.com/index.php
 
-### Login
+### Login [x]
 - paramètres :  page = login, nickname, password
 - forme réponse : {'success' => [true]/[false]}
 
-### Register
+### Register [x]
 - paramètres : page = register, nickname, password1, password2, mail, phone, firstname, lastname
 - forme réponse : {'success' => [true] / [false], 'error' => 'message erreur'}
 
-### UpdateUserProfile
+### UpdateUserProfile [ ]
 - paramètres : page = updateUserProfile, login, newPassword, newMail, newPhone, newFirstname, newLastname
 - forme réponse : {'success' => [true]/[false]}
 
-### DeleteUser
+### DeleteUser [ ]
 - paramètres : page = deleteUser, login
 - forme réponse : {'success' => [true]/[false]}
 
-### GetHomelessAnimals
+### GetHomelessAnimals [ ]
 - paramètres : page = getHomelessAnimals
 - forme réponse : {'idAnimal1' => Animal, 'idAnimal2' => Animal, ...}
 
-### AddAnimal
+### AddAnimal [ ]
 - paramètres : page = addAnimal, type, name, breed, age, gender, catsFriend, dogsFriend, childrenFriend, description, state, idShelter
 - forme réponse : {'success' => [true]/[false]}
 
-### ChangeAnimalsStatus
+### ChangeAnimalsStatus [ ]
 - paramètres : page = changeAnimalsStatus, idAnimal, newStatus
 - forme réponse : {'success' => [true]/[false]}
 
