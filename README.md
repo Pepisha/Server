@@ -8,12 +8,34 @@ Serveur de l'aplication Find Yours Pets.
 - Echange de données via JSON
 
 ## Protocole d'échange
-### Login
 - url : http://domaine.com/index.php
-- paramètres : nickname, password, page=login
+
+### Login
+- paramètres :  page = login, nickname, password
 - forme réponse : {'success' => [true]/[false]}
 
 ### Register
-- url : http://domaine.com/
-- paramètres : nickname, password1, password2, mail, phone, firstname, lastname, page=register
+- paramètres : page = register, nickname, password1, password2, mail, phone, firstname, lastname
 - forme réponse : {'success' => [true] / [false], 'error' => 'message erreur'}
+
+### UpdateUserProfile
+- paramètres : page = updateUserProfile, login, newPassword, newMail, newPhone, newFirstname, newLastname
+- forme réponse : {'success' => [true]/[false]}
+
+### DeleteUser
+- paramètres : page = deleteUser, login
+- forme réponse : {'success' => [true]/[false]}
+
+### GetHomelessAnimals
+- paramètres : page = getHomelessAnimals
+- forme réponse : {'idAnimal1' => Animal, 'idAnimal2' => Animal, ...}
+
+### AddAnimal
+- paramètres : page = addAnimal, type, name, breed, age, gender, catsFriend, dogsFriend, childrenFriend, description, state, idShelter
+- forme réponse : {'success' => [true]/[false]}
+
+### ChangeAnimalsStatus
+- paramètres : page = changeAnimalsStatus, idAnimal, newStatus
+- forme réponse : {'success' => [true]/[false]}
+
+
