@@ -22,8 +22,8 @@ Serveur de l'aplication Find Yours Pets.
   - paramètres : page = updateUserProfile, login, newPassword, confirmNewPassword, newMail, newPhone, newFirstname, newLastname
   - forme réponse : {'success' => [true]/[false], 'error' => 'message erreur'}
 
-- [ ] DeleteUser
-  - paramètres : page = deleteUser, login
+- [x] DeleteUser
+  - paramètres : page = deleteUser, nickname
   - forme réponse : {'success' => [true]/[false]}
 
 - [ ] GetHomelessAnimals

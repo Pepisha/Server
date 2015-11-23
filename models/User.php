@@ -167,5 +167,14 @@ private $lastname;
       return "Unknown nickname";
     }
   }
+
+  /**
+   * @return true si la suppression c'est bien passée, false sinon.
+   */
+  public static function deleteUser($nickname) {
+      $db = DbManager::getPDO();
+      $query = "DELETE FROM User WHERE nickname = '".$nickname."'";
+      return $db->query($query);
+  }
 }
 ?>
