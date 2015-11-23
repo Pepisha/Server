@@ -18,24 +18,22 @@ Serveur de l'aplication Find Yours Pets.
   - paramètres : page = register, nickname, password1, password2, mail, phone, firstname, lastname
   - forme réponse : {'success' => [true] / [false], 'error' => 'message erreur'}
 
-- [ ] UpdateUserProfile
+- [x] UpdateUserProfile
   - paramètres : page = updateUserProfile, login, newPassword, confirmNewPassword, newMail, newPhone, newFirstname, newLastname
-  - forme réponse : {'success' => [true]/[false]}
+  - forme réponse : {'success' => [true]/[false], 'error' => 'message erreur'}
 
-- [ ] DeleteUser 
+- [ ] DeleteUser
   - paramètres : page = deleteUser, login
   - forme réponse : {'success' => [true]/[false]}
 
-- [ ] GetHomelessAnimals 
+- [ ] GetHomelessAnimals
   - paramètres : page = getHomelessAnimals
   - forme réponse : {'idAnimal1' => Animal, 'idAnimal2' => Animal, ...}
 
-- [ ] AddAnimal 
+- [ ] AddAnimal
   - paramètres : page = addAnimal, type, name, breed, age, gender, catsFriend, dogsFriend, childrenFriend, description, state, idShelter
   - forme réponse : {'success' => [true]/[false]}
 
-- [ ] ChangeAnimalsStatus 
+- [ ] ChangeAnimalsStatus
   - paramètres : page = changeAnimalsStatus, idAnimal, newStatus
   - forme réponse : {'success' => [true]/[false]}
-
-
