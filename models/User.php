@@ -3,7 +3,7 @@
 
 class User {
 
-private $id;
+private $idUser;
 private $nickname;
 private $password;
 private $mail;
@@ -15,7 +15,7 @@ private $lastname;
     $db = DbManager::getPDO();
     $query = "SELECT * FROM User WHERE nickname = '".$nickname."'";
     $res = $db->query($query)->fetch();
-    $this->id = $res['id'];
+    $this->idUser = $res['idUser'];
     $this->nickname = $res['nickname'];
     $this->password = $res['password'];
     $this->mail = $res['mail'];

@@ -34,6 +34,6 @@ Serveur de l'aplication Find Yours Pets.
   - paramètres : page = addAnimal, type, name, breed, age, gender, catsFriend, dogsFriend, childrenFriend, description, state, idShelter
   - forme réponse : {'success' => [true]/[false]}
 
-- [ ] ChangeAnimalsStatus
+- [x] ChangeAnimalsStatus
   - paramètres : page = changeAnimalsStatus, idAnimal, newStatus
   - forme réponse : {'success' => [true]/[false]}
