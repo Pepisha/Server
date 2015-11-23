@@ -1,5 +1,6 @@
 <?php
 require_once 'models/Address.php';
+require_once 'models/Animal.php';
 
 class Shelter {
   private $idShelter;
@@ -43,6 +44,29 @@ class Shelter {
     $query = "INSERT INTO Shelter(name, phone, idAddress, description, mail, operationalHours )
               VALUES ('".$name."','".$phone."','".$idAddress."','".$description."','".$mail."','".$operationalHours."')";
     return $db->exec($query);
+  }
+
+  private static function linkAnimalToShelter($idAnimal, $idShelter) {
+    $db = DbManager::getPDO();
+    $query = "INSERT INTO AnimalShelter(idAnimal, idShelter) VALUES (".$idAnimal.",".$idShelter.")";
+    return $db->exec($query);
+  }
+
+  public static function addAnimalInShelter($idShelter, $type, $name, $breed, $age, $gender, $catsFriend, $dogsFriend, $childrenFriend, $description, $state){
+    if(Shelter::isShelterExistInDataBase($idShelter)) {
+      $addAnimalResult = Animal::addAnimalInDataBase($type, $name, $breed, $age, $gender, $catsFriend, $dogsFriend,
+                                                     $childrenFriend, $description, $state);
+      if($addAnimalResult) {
+        $idAnimal = Animal::getIdAnimal($type, $name, $breed, $age, $gender, $catsFriend, $dogsFriend,
+                                        $childrenFriend, $description, $state);
+        $linkResult = Shelter::linkAnimalToShelter($idAnimal,$idShelter);
+        return $linkResult;
+      } else {
+        return $addAnimalResult;
+      }
+    } else {
+      return "Unknown shelter";
+    }
   }
 }
 

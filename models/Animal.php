@@ -37,7 +37,7 @@
     }
 
     public static function addAnimalInDataBase($type, $name, $breed, $age, $gender, $catsFriend, $dogsFriend,
-    $childrenFriend, $description, $state) {
+                                               $childrenFriend, $description, $state) {
       $db = DbManager::getPDO();
       $query = "INSERT INTO Animal(type, name, breed, age, gender, catsFriend, dogsFriend, childrenFriend, description, state)
                 VALUES (".$type.",'".$name."','".$breed."','".$age."','".$gender."','".$catsFriend."','".$dogsFriend."','".$childrenFriend."',
@@ -53,6 +53,15 @@
       } else {
         return "Unknown animal";
       }
+    }
+
+    public static function getAnimalsId($type, $name, $breed, $age, $gender, $catsFriend, $dogsFriend,
+                                        $childrenFriend, $description, $state) {
+      $db = DbManager::getPDO();
+      $query = "SELECT idAnimal FROM Animal WHERE type=".$type.", name='".$name."', age='".$age."', gender='".$gender."', catsFriend='".$catsFriend."'
+                ,dogsFriend='".$dogsFriend."', childrenFriend='".$childrenFriend."', description='".$description."',state='".$state."';";
+      $res = $db->query($query)->fetch();
+      return $res['idAnimal'];
     }
   }
 

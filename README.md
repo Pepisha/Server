@@ -30,9 +30,9 @@ Serveur de l'aplication Find Yours Pets.
   - paramètres : page = getHomelessAnimals
   - forme réponse : {'idAnimal1' => Animal, 'idAnimal2' => Animal, ...}
 
-- [ ] AddAnimal
-  - paramètres : page = addAnimal, type, name, breed, age, gender, catsFriend, dogsFriend, childrenFriend, description, state, idShelter
-  - forme réponse : {'success' => [true]/[false]}
+- [x] AddAnimalInShelter
+  - paramètres : page = addAnimalInShelter, type, name, breed, age, gender, catsFriend, dogsFriend, childrenFriend, description, state, idShelter
+  - forme réponse : {'success' => [true]/[false], 'error' => 'message erreur'}
 
 - [x] ChangeAnimalsStatus
   - paramètres : page = changeAnimalsStatus, idAnimal, newStatus
