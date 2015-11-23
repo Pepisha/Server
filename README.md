@@ -19,7 +19,7 @@ Serveur de l'aplication Find Yours Pets.
   - forme réponse : {'success' => [true] / [false], 'error' => 'message erreur'}
 
 - [ ] UpdateUserProfile
-  - paramètres : page = updateUserProfile, login, newPassword, newMail, newPhone, newFirstname, newLastname
+  - paramètres : page = updateUserProfile, login, newPassword, confirmNewPassword, newMail, newPhone, newFirstname, newLastname
   - forme réponse : {'success' => [true]/[false]}
 
 - [ ] DeleteUser 
