@@ -29,7 +29,7 @@
       $this->state = $res['state'];
     }
 
-    public static isAnimalExistInDataBase($idAnimal) {
+    public static function isAnimalExistInDataBase($idAnimal) {
       $db = DbManager::getPDO();
       $query = "SELECT idAnimal FROM Animal WHERE idAnimal='".$idAnimal."';";
       $res = $db->query($query)->fetch();
@@ -42,7 +42,7 @@
       $query = "INSERT INTO Animal(type, name, breed, age, gender, catsFriend, dogsFriend, childrenFriend, description, state)
                 VALUES (".$type.",'".$name."','".$breed."','".$age."','".$gender."','".$catsFriend."','".$dogsFriend."','".$childrenFriend."',
                 '".$description."',".$state.");";
-      return $db->query($query);
+      return $db->exec($query);
     }
 
     public static function updateStatus($idAnimal, $newStatus) {
