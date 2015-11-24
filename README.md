@@ -34,7 +34,7 @@ Serveur de l'application Find Yours Pets.
   - paramètres : page = followAnimal, nickname, idAnimal
   - forme réponse : {'success' => [true]/[false], 'error' => 'message erreur'}
 
-- [ ] FollowShelter
+- [x] FollowShelter
   - paramètres : page = followShelter, nickname, idAnimal
   - forme réponse : {'success' => [true]/[false], 'error' => 'messages erreur'}
 
