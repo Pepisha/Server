@@ -26,6 +26,26 @@ Serveur de l'application Find Yours Pets.
   - paramètres : page = deleteUser, nickname
   - forme réponse : {'success' => [true]/[false]}
 
+- [ ] GetUsersAnimals
+  - paramètres : page = getUsersAnimals, nickname
+  - forme réponse : {'idAnimal1' => Animal, 'idAnimal2' => Animal, ...}
+
+- [ ] FollowAnimal
+  - paramètres : page = followAnimal, nickname, idAnimal
+  - forme réponse : {'success' => [true]/[false], 'error' => 'message erreur'}
+
+- [ ] FollowShelter
+  - paramètres : page = followShelter, nickname, idAnimal
+  - forme réponse : {'success' => [true]/[false], 'error' => 'messages erreur'}
+
+- [ ] GiveOpinionAboutUser
+  - paramètres : page = giveOpinionAboutUser, nicknameUserCommented, nickname, stars, description
+  - forme réponse : {'success' => [true]/[false], 'error' => 'message erreur'}
+
+- [ ] GiveOpinionAboutShelter
+  - paramètres : page = giveOpinionAboutShelter, idShelter, nickname, stars, description
+  - forme réponse : {'success' => [true]/[false], 'error' => 'message erreur'}
+
 - [x] GetHomelessAnimals
   - paramètres : page = getHomelessAnimals
   - forme réponse : {'idAnimal1' => Animal, 'idAnimal2' => Animal, ...}
