@@ -39,7 +39,7 @@
       $db = DbManager::getPDO();
       $query = "SELECT idAnimal FROM Animal WHERE idAnimal='".$idAnimal."';";
       $res = $db->query($query)->fetch();
-      return $result['idAnimal'] === $idAnimal;
+      return $res['idAnimal'] === $idAnimal;
     }
 
     /**
@@ -62,8 +62,8 @@
     public static function updateStatus($idAnimal, $newStatus) {
       if(Animal::isAnimalExistInDataBase($idAnimal)) {
         $db = DbManager::getPDO();
-        $query = "UPDATE Animal SET status = ".$newStatus." WHERE idAnimal = ".$idAnimal.";";
-        return $db->query($query);
+        $query = "UPDATE Animal SET idState = ".$newStatus." WHERE idAnimal = ".$idAnimal.";";
+        return ($db->exec($query)>=0);
       } else {
         return "Unknown animal";
       }
@@ -108,7 +108,6 @@
       $query = "SELECT * FROM Animal WHERE idState='".self::$STATE_ADOPTION."';";
       $res = $db->query($query)->fetchAll();
 
-      $listAnimals = array();
       for ($i=0; $i<count($res); $i++) {
         $animal = Animal::getAnimalArrayFromFetch($res[$i]);
         $listAnimals[$animal['idAnimal']] = $animal;
