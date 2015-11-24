@@ -1,6 +1,7 @@
 <?php
 
 require_once 'models/Animal.php';
+require_once 'models/Shelter.php';
 
 class User {
 
@@ -189,6 +190,21 @@ private $lastname;
         return ($db->exec($query)>=0);
       } else {
         return "Unknown animal";
+      }
+    } else {
+      return "Unknown user";
+    }
+  }
+
+  public static function followShelter($nickname, $idShelter) {
+    if(User::isUserExistInDataBase($nickname)) {
+      if(Shelter::isShelterExistInDataBase($idShelter)) {
+        $db = DbManager::getPDO();
+        $user = new User($nickname);
+        $query = "INSERT INTO FollowShelter(idUser, idShelter) VALUES (".$user->nickname.",".$idShelter.")";
+        return ($db->exec($query)>=0);
+      } else {
+        return "Unknown shelter";
       }
     } else {
       return "Unknown user";
