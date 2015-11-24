@@ -12,8 +12,8 @@
     private $description;
     private $state;
 
-    private static $STATE_ADOPTED = 2;
-    private static $STATE_ADOPTION = 1;
+    public static $STATE_ADOPTED = 2;
+    public static $STATE_ADOPTION = 1;
 
     public function __construct($idAnimal) {
       $db = DbManager::getPDO();
@@ -85,7 +85,7 @@
      * @return transforme le résultat du fetch d'un animal en un tableau contenant
      *         les informations de l'animal pour ensuite le transmettre au clien
      */
-    private static function getAnimalArrayFromFetch($animal) {
+    public static function getAnimalArrayFromFetch($animal) {
       $animalArray["idAnimal"] = intval($animal["idAnimal"]);
       $animalArray["idType"] = intval($animal["idType"]);
       $animalArray["name"] = $animal["name"];

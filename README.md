@@ -1,6 +1,6 @@
 # Server
 
-Serveur de l'aplication Find Yours Pets.
+Serveur de l'application Find Yours Pets.
 
 ## Spécifications techniques
 - Serveur PHP
@@ -46,8 +46,8 @@ Serveur de l'aplication Find Yours Pets.
   - paramètres : page = addShelter, name, phone, description, mail, operationalHours, street, zipcode, city, latitude, longitude
   - forme réponse : {'success' => [true]/[false]}
 
-- [ ] GetSheltersAnimals
-  - paramètres : page = getSheltersAnimal, idShelter
+- [x] GetSheltersAnimals
+  - paramètres : page = getSheltersAnimals, idShelter
   - forme réponse : {'idAnimal1' => Animal, 'idAnimal2' => Animal, ...}
 
 - [ ] AddShelterAdministrator

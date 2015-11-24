@@ -99,6 +99,18 @@ class Shelter {
 
     return $listShelters;
   }
+
+  public static function getSheltersAnimals($idShelter) {
+    $db = DbManager::getPDO();
+    $query = "SELECT * FROM Animal WHERE idShelter = ".$idShelter." AND idState = ".Animal::$STATE_ADOPTION.";";
+    $res = $db->query($query)->fetchAll();
+    for ($i=0; $i<count($res); $i++) {
+      $animal = Animal::getAnimalArrayFromFetch($res[$i]);
+      $listAnimals[$animal['idAnimal']] = $animal;
+    }
+
+    return $listAnimals;
+  }
 }
 
 
