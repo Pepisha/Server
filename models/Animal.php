@@ -88,7 +88,8 @@
     private static function getAnimalArrayFromFetch($animal) {
       $animalArray["idAnimal"] = intval($animal["idAnimal"]);
       $animalArray["idType"] = intval($animal["idType"]);
-      $animalArray["name"] = $animal["breed"];
+      $animalArray["name"] = $animal["name"];
+      $animalArray["breed"] = $animal["breed"];
       $animalArray["age"] = $animal["age"];
       $animalArray["gender"] = $animal["gender"];
       $animalArray["catsFriend"] = $animal["catsFriend"];
