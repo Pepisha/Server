@@ -1,6 +1,6 @@
 <?php
 
-public class Address {
+class Address {
   private $idAddress;
   private $street;
   private $zipcode;
