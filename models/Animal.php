@@ -81,9 +81,13 @@
       return $res['idAnimal'];
     }
 
+    /**
+     * @return transforme le résultat du fetch d'un animal en un tableau contenant
+     *         les informations de l'animal pour ensuite le transmettre au clien
+     */
     private static function getAnimalArrayFromFetch($animal) {
-      $animalArray["idAnimal"] = $animal["idAnimal"];
-      $animalArray["idType"] = $animal["type"];
+      $animalArray["idAnimal"] = intval($animal["idAnimal"]);
+      $animalArray["idType"] = intval($animal["idType"]);
       $animalArray["name"] = $animal["breed"];
       $animalArray["age"] = $animal["age"];
       $animalArray["gender"] = $animal["gender"];
@@ -91,7 +95,7 @@
       $animalArray["dogsFriend"] = $animal["dogsFriend"];
       $animalArray["childrenFriend"] = $animal["childrenFriend"];
       $animalArray["description"] = $animal["description"];
-      $animalArray["idState"] = $animal["idState"];
+      $animalArray["idState"] = intval($animal["idState"]);
       return $animalArray;
     }
 
