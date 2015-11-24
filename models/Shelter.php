@@ -124,21 +124,59 @@ class Shelter {
   }
 
   /**
+   * @return true si les données existent,
+   *         "Unknown shelter" si le refuge n'est pas dans la BDD,
+   *         "Unknown user" si l'utilisateur n'est pas dans la BDD
+   */
+  private static function checkIfShelterAndUserExists($idShelter, $nickname) {
+    if(Shelter::isShelterExistInDataBase($idShelter)) {
+      if(User::isUserExistInDataBase($nickname)) {
+          return true;
+        } else {
+          return "Unknown user";
+        }
+      } else {
+        return "Unknown shelter";
+      }
+  }
+
+  /**
    * @return true si l'enregistrement c'est bien fais, false sinon,
    *         "Unknown shelter" si le refuge n'est pas dans la BDD,
    *         "Unknown user" si l'utilisateur n'est pas dans la BDD
    */
   public static function addAdministrator($idShelter, $nickname) {
-    if(Shelter::isShelterExistInDataBase($idShelter)) {
-      if(User::isUserExistInDataBase($nickname)) {
-          $user = new User($nickname);
-          return Shelter::addAdministratorInDataBase($idShelter,$user->idUser);
+      $check = checkIfShelterAndUserExists($idShelter, $nickname);
+      if($check) {
+        $user = new User($nickname);
+        return Shelter::addAdministratorInDataBase($idShelter,$user->idUser);
       } else {
-        return "Unknown user";
+        return $check;
       }
-    } else {
-      return "Unknown shelter";
+  }
+
+  /**
+   * @return true si l'enregistrement en bdd c'est bien fais, false sinon
+   */
+  private static function addManagerInDataBase($idShelter, $idUser) {
+    $db = DbManager::getPDO();
+    $query = "INSERT INTO Manages(idUser, idShelter)
+              VALUES (".$idUser.", ".$idShelter.");";
+    return ($db->exec($query)>=0);
+  }
+
+  /**
+   * @return true si l'enregistrement c'est bien fais, false sinon,
+   *         "Unknown shelter" si le refuge n'est pas dans la BDD,
+   *         "Unknown user" si l'utilisateur n'est pas dans la BDD
+   */
+  public static function addManager($idShelter, $nickname) {
+    $check = checkIfShelterAndUserExists($idShelter, $nickname);
+    if($check) {
+      $user = new User($nickname);
+      return Shelter::addManagerInDataBase($idShelter,$user->idUser);
     }
+    return $check;
   }
 }
 

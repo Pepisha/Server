@@ -54,6 +54,6 @@ Serveur de l'application Find Yours Pets.
   - paramètres : page = addShelterAdministrator, idShelter, nickname
   - forme réponse : {'success' => [true]/[false]}
 
-- [ ] AddShelterVonlonteer
-  - paramètres : page = addShelterVonlonteer, idShelter, nickname
+- [x] AddShelterManager
+  - paramètres : page = AddShelterManager, idShelter, nickname
   - forme réponse : {'success' => [true]/[false]}
