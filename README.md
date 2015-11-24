@@ -30,7 +30,7 @@ Serveur de l'application Find Yours Pets.
   - paramètres : page = getUsersAnimals, nickname
   - forme réponse : {'idAnimal1' => Animal, 'idAnimal2' => Animal, ...}
 
-- [ ] FollowAnimal
+- [x] FollowAnimal
   - paramètres : page = followAnimal, nickname, idAnimal
   - forme réponse : {'success' => [true]/[false], 'error' => 'message erreur'}
 

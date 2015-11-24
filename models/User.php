@@ -1,5 +1,6 @@
 <?php
 
+require_once 'models/Animal.php';
 
 class User {
 
@@ -175,6 +176,23 @@ private $lastname;
       $db = DbManager::getPDO();
       $query = "DELETE FROM User WHERE nickname = '".$nickname."'";
       return $db->query($query);
+  }
+
+
+
+  public static function followAnimal($nickname, $idAnimal) {
+    if(User::isUserExistInDataBase($nickname)) {
+      if(Animal::isAnimalExistInDataBase($idAnimal)) {
+        $db = DbManager::getPDO();
+        $user = new User($nickname);
+        $query = "INSERT INTO FollowAnimal(idUser, idAnimal) VALUES (".$user->nickname.",".$idAnimal.")";
+        return ($db->exec($query)>=0);
+      } else {
+        return "Unknown animal";
+      }
+    } else {
+      return "Unknown user";
+    }
   }
 }
 ?>
