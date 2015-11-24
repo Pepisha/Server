@@ -68,6 +68,37 @@ class Shelter {
       return "Unknown shelter";
     }
   }
+
+  /**
+   * @return transforme le résultat du fetch d'un refuge en un tableau contenant
+   *         les informations du refuge pour ensuite le transmettre au clien
+   */
+  public static function getShelterArrayFromFetch($shelter) {
+    $arrayShelter["idShelter"] = intval($shelter["idShelter"]);
+    $arrayShelter["name"] = $shelter["name"];
+    $arrayShelter["phone"] = $shelter["phone"];
+    $arrayShelter["idAddress"] = intval($shelter["idAddress"]);
+    $arrayShelter["description"] = $shelter["description"];
+    $arrayShelter["mail"] = $shelter["mail"];
+    $arrayShelter["operationalHours"] = $shelter["operationalHours"];
+    $arrayShelter["idFacebook"] = intval($shelter["idFacebook"]);
+    $arrayShelter["idTwitter"] = intval($shelter["idTwitter"]);
+    $arrayShelter["idInstagram"] = intval($shelter["idInstagram"]);
+    return $arrayShelter;
+  }
+
+  public static function getAllShelters() {
+    $db = DbManager::getPDO();
+    $query = "SELECT * FROM Shelter;";
+    $res = $db->query($query)->fetchAll();
+
+    for ($i=0; $i<count($res); $i++) {
+      $shelter = Shelter::getShelterArrayFromFetch($res[$i]);
+      $listShelters[$shelter['idShelter']] = $shelter;
+    }
+
+    return $listShelters;
+  }
 }
 
 

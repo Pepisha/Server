@@ -38,8 +38,8 @@ Serveur de l'aplication Find Yours Pets.
   - paramètres : page = changeAnimalsStatus, idAnimal, newStatus
   - forme réponse : {'success' => [true]/[false]}
 
-- [ ] GetShelters
-  - paramètres : page = getShelters
+- [x] GetAllShelters
+  - paramètres : page = getAllShelters
   - forme réponse : {'idShelter1' => Shelter, 'idShelter2' => Shelter, ...}
 
 - [x] AddShelter
