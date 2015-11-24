@@ -1,6 +1,7 @@
 <?php
 require_once 'models/Address.php';
 require_once 'models/Animal.php';
+require_once 'models/User.php';
 
 class Shelter {
   private $idShelter;
@@ -110,6 +111,34 @@ class Shelter {
     }
 
     return $listAnimals;
+  }
+
+  /**
+   * @return true si l'enregistrement en bdd c'est bien fais, false sinon
+   */
+  private static function addAdministratorInDataBase($idShelter, $idUser) {
+    $db = DbManager::getPDO();
+    $query = "INSERT INTO IsAdmin(idUser, idShelter)
+              VALUES (".$idUser.", ".$idShelter.");";
+    return ($db->exec($query)>=0);
+  }
+
+  /**
+   * @return true si l'enregistrement c'est bien fais, false sinon,
+   *         "Unknown shelter" si le refuge n'est pas dans la BDD,
+   *         "Unknown user" si l'utilisateur n'est pas dans la BDD
+   */
+  public static function addAdministrator($idShelter, $nickname) {
+    if(Shelter::isShelterExistInDataBase($idShelter)) {
+      if(User::isUserExistInDataBase($nickname)) {
+          $user = new User($nickname);
+          return Shelter::addAdministratorInDataBase($idShelter,$user->idUser);
+      } else {
+        return "Unknown user";
+      }
+    } else {
+      return "Unknown shelter";
+    }
   }
 }
 
