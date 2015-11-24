@@ -12,12 +12,15 @@
     private $description;
     private $state;
 
+    private static $STATE_ADOPTED = 2;
+    private static $STATE_ADOPTION = 1;
+
     public function __construct($idAnimal) {
       $db = DbManager::getPDO();
       $query = "SELECT * FROM Animal WHERE idAnimal = ".$idAnimal."";
       $res = $db->query($query)->fetch();
       $this->idAnimal = $res['idAnimal'];
-      $this->type = $res['type'];
+      $this->type = $res['idType'];
       $this->name = $res['name'];
       $this->breed = $res['breed'];
       $this->age = $res['age'];
@@ -26,9 +29,12 @@
       $this->dogsFriend = $res['dogsFriend'];
       $this->childrenFriend = $res['childrenFriend'];
       $this->description = $res['description'];
-      $this->state = $res['state'];
+      $this->state = $res['idState'];
     }
 
+    /**
+     * @return true si l'animal est présent dans la BDD, false sinon.
+     */
     public static function isAnimalExistInDataBase($idAnimal) {
       $db = DbManager::getPDO();
       $query = "SELECT idAnimal FROM Animal WHERE idAnimal='".$idAnimal."';";
@@ -36,6 +42,9 @@
       return $result['idAnimal'] === $idAnimal;
     }
 
+    /**
+     * @return true si l'ajout c'est bien passé, false sinon
+     */
     public static function addAnimalInDataBase($type, $name, $breed, $age, $gender, $catsFriend, $dogsFriend,
                                                $childrenFriend, $description, $state) {
       $db = DbManager::getPDO();
@@ -45,6 +54,11 @@
       return $db->exec($query);
     }
 
+    /**
+     * @action met à jour le statut de l'animal
+     * @return true/false suivant le resultat de la requete,
+     *        "Unknown animal" si l'animal n'est pas présent dans la BDD
+     */
     public static function updateStatus($idAnimal, $newStatus) {
       if(Animal::isAnimalExistInDataBase($idAnimal)) {
         $db = DbManager::getPDO();
@@ -55,13 +69,47 @@
       }
     }
 
+    /**
+     * @return l'identifiant de l'animal en question
+     */
     public static function getAnimalsId($type, $name, $breed, $age, $gender, $catsFriend, $dogsFriend,
                                         $childrenFriend, $description, $state) {
       $db = DbManager::getPDO();
       $query = "SELECT idAnimal FROM Animal WHERE type=".$type.", name='".$name."', age='".$age."', gender='".$gender."', catsFriend='".$catsFriend."'
-                ,dogsFriend='".$dogsFriend."', childrenFriend='".$childrenFriend."', description='".$description."',state='".$state."';";
+                ,dogsFriend='".$dogsFriend."', childrenFriend='".$childrenFriend."', description='".$description."', idState='".$state."';";
       $res = $db->query($query)->fetch();
       return $res['idAnimal'];
+    }
+
+    private static function getAnimalArrayFromFetch($animal) {
+      $animalArray["idAnimal"] = $animal["idAnimal"];
+      $animalArray["idType"] = $animal["type"];
+      $animalArray["name"] = $animal["breed"];
+      $animalArray["age"] = $animal["age"];
+      $animalArray["gender"] = $animal["gender"];
+      $animalArray["catsFriend"] = $animal["catsFriend"];
+      $animalArray["dogsFriend"] = $animal["dogsFriend"];
+      $animalArray["childrenFriend"] = $animal["childrenFriend"];
+      $animalArray["description"] = $animal["description"];
+      $animalArray["idState"] = $animal["idState"];
+      return $animalArray;
+    }
+
+    /**
+     * @return la liste des animaux à l'adoption
+     */
+    public static function getHomelessAnimals() {
+      $db = DbManager::getPDO();
+      $query = "SELECT * FROM Animal WHERE idState='".self::$STATE_ADOPTION."';";
+      $res = $db->query($query)->fetchAll();
+
+      $listAnimals = array();
+      for ($i=0; $i<count($res); $i++) {
+        $animal = Animal::getAnimalArrayFromFetch($res[$i]);
+        $listAnimals[$animal['idAnimal']] = $animal;
+      }
+
+      return $listAnimals;
     }
   }
 
