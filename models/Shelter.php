@@ -35,7 +35,7 @@ class Shelter {
     $db = DbManager::getPDO();
     $query = "SELECT idShelter FROM Shelter WHERE idShelter='".$idShelter."';";
     $res = $db->query($query)->fetch();
-    return $result['idShelter'] === $idShelter;
+    return $res['idShelter'] === $idShelter;
   }
 
   public static function addShelterInDataBase($name, $phone, $description, $email, $operationalHours, $street, $zipcode, $city, $latitude, $longitude){
