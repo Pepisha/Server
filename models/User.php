@@ -26,6 +26,22 @@ private $lastname;
     $this->lastname = $res['lastname'];
   }
 
+  public static function getUsersInformationsArray($nickname) {
+    if(User::isUserExistInDataBase($nickname)) {
+      $user = new User($nickname);
+      $userArray['nickname'] = $user->nickname;
+      $userArray['password'] = $user->password;
+      $userArray['mail'] = $user->mail;
+      $userArray['phone'] = $user->phone;
+      $userArray['firstname'] = $user->firstname;
+      $userArray['lastname'] = $user->lastname;
+      return $userArray;
+    } else {
+      return "Unknown user";
+    }
+
+  }
+
 /**
  * @return true si l'utilisateur existe dans la BD, false sinon.
  */
@@ -210,7 +226,7 @@ private $lastname;
       return "Unknown user";
     }
   }
-  
+
   public static function getUsersAnimals($nickname) {
       if(User::isUserExistInDataBase($nickname)) {
           $db = DbManager::getPDO();
@@ -227,5 +243,3 @@ private $lastname;
       }
   }
 }
-
-
