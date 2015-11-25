@@ -115,6 +115,27 @@
 
       return $listAnimals;
     }
+
+    public static function getAnimalInformations($idAnimal) {
+      if(Animal::isAnimalExistInDataBase($idAnimal)) {
+        $animal = new Animal($idAnimal);
+        $animalArray['idAnimal'] = $animal->idAnimal;
+        $animalArray["idAnimal"] = intval($animal->idAnimal);
+        $animalArray["idType"] = intval($animal->idType);
+        $animalArray["name"] = $animal->name;
+        $animalArray["breed"] = $animal->breed;
+        $animalArray["age"] = $animal->age;
+        $animalArray["gender"] = $animal->gender;
+        $animalArray["catsFriend"] = $animal->catsFriend;
+        $animalArray["dogsFriend"] = $animal->dogsFriend;
+        $animalArray["childrenFriend"] = $animal->childrenFriend;
+        $animalArray["description"] = $animal->description;
+        $animalArray["idState"] = intval($animal->idState);
+        return $animalArray;
+      } else {
+        return "Unknown animal";
+      }
+    }
   }
 
 

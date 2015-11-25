@@ -2,7 +2,7 @@
 
 require_once 'models/User.php';
 
-$result = User::followShelter($_POST['nickname'],$_POST['idShelter']);
+$result = User::getUserInformations($_POST['nickname']);
 if(gettype($result)==="string") {
   $resultToSend = ['success' => false, 'error' => $result];
 } else {

@@ -54,8 +54,8 @@ Serveur de l'application Find Yours Pets.
   - paramètres : page = getHomelessAnimals
   - forme réponse : {'idAnimal1' => Animal, 'idAnimal2' => Animal, ...}
 
-- [ ] GetAnimal
-  - paramètres : page = getAnimal
+- [x] GetAnimal
+  - paramètres : page = getAnimal, idAnimal
   - forme réponse : {'idAnimal' => Animal }
 
 - [x] AddAnimalInShelter
