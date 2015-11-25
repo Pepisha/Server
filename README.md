@@ -26,7 +26,7 @@ Serveur de l'application Find Yours Pets.
   - paramètres : page = deleteUser, nickname
   - forme réponse : {'success' => [true]/[false]}
 
-- [ ] GetUsersAnimals
+- [x] GetUsersAnimals
   - paramètres : page = getUsersAnimals, nickname
   - forme réponse : {'idAnimal1' => Animal, 'idAnimal2' => Animal, ...}
 

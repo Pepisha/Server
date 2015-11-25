@@ -210,5 +210,22 @@ private $lastname;
       return "Unknown user";
     }
   }
+  
+  public static function getUsersAnimals($nickname) {
+      if(User::isUserExistInDataBase($nickname)) {
+          $db = DbManager::getPDO();
+          $user = new User($nickname);
+          $req = "SELECT * FROM Animal an, Adopt ad WHERE an.idAnimal=ad.idAnimal AND ad.idUser=".$user->idUser."";
+          $res = $db->query($query);
+          for($i = 0; $i < count($res); $i++) {
+              $animal = Animal::getAnimalArrayFromFetch($res[$i]);
+              $listUsersAnimals[$animal['idAnimal']] = $animal;
+          }
+          return $listUsersAnimals;
+      } else {
+          return "Unknown user";
+      }
+  }
 }
-?>
+
+
