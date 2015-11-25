@@ -26,6 +26,10 @@ Serveur de l'application Find Yours Pets.
   - paramètres : page = deleteUser, nickname
   - forme réponse : {'success' => [true]/[false]}
 
+- [ ] GetUserInformations
+  - paramètres : page = getUserInformations, nickname
+  - forme réponse : {'idUser' => User}
+
 - [x] GetUsersAnimals
   - paramètres : page = getUsersAnimals, nickname
   - forme réponse : {'idAnimal1' => Animal, 'idAnimal2' => Animal, ...}
@@ -41,10 +45,18 @@ Serveur de l'application Find Yours Pets.
 - [x] GiveOpinionAboutShelter
   - paramètres : page = giveOpinionAboutShelter, idShelter, nickname, stars, description
   - forme réponse : {'success' => [true]/[false], 'error' => 'message erreur'}
+  
+- [ ] GetOpinionsAboutShelter
+  - paramètres : page = getOpinionsAboutShelter, idShelter
+  - forme réponse : {'idOpinion1' => Opinion, 'idOpinion2' => Opinion, ...}
 
 - [x] GetHomelessAnimals
   - paramètres : page = getHomelessAnimals
   - forme réponse : {'idAnimal1' => Animal, 'idAnimal2' => Animal, ...}
+
+- [ ] GetAnimal
+  - paramètres : page = getAnimal
+  - forme réponse : {'idAnimal' => Animal }
 
 - [x] AddAnimalInShelter
   - paramètres : page = addAnimalInShelter, type, name, breed, age, gender, catsFriend, dogsFriend, childrenFriend, description, state, idShelter
@@ -61,6 +73,10 @@ Serveur de l'application Find Yours Pets.
 - [x] AddShelter
   - paramètres : page = addShelter, name, phone, description, mail, operationalHours, street, zipcode, city, latitude, longitude
   - forme réponse : {'success' => [true]/[false]}
+
+- [ ] GetShelter
+  - paramètres : page = getShelter
+  - forme réponse : {'idShelter' => Shelter}
 
 - [x] GetSheltersAnimals
   - paramètres : page = getSheltersAnimals, idShelter
