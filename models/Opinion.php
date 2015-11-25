@@ -59,12 +59,13 @@ class Opinion {
 
     public static function getOpinionsAboutShelter($idShelter) {
       if(Shelter::isShelterExistInDataBase($idShelter)) {
-        $req = "SELECT * FROM Opinion WHERE idShelter = ".$idShelter.";";
+        $db = DbManager::getPDO();
+        $query = "SELECT * FROM Opinion WHERE idShelter = ".$idShelter.";";
         $res = $db->query($query)->fetchAll();
 
         for ($i=0; $i<count($res); $i++) {
           $opinion = Opinion::getOpinionArrayFromFetch($res[$i]);
-          $listOpinions[$opinion['idAnimal']] = $opinion;
+          $listOpinions[$opinion['idOpinion']] = $opinion;
         }
         return $listOpinions;
 
