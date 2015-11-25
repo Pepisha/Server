@@ -46,7 +46,7 @@ Serveur de l'application Find Yours Pets.
   - paramètres : page = giveOpinionAboutShelter, idShelter, nickname, stars, description
   - forme réponse : {'success' => [true]/[false], 'error' => 'message erreur'}
 
-- [ ] GetOpinionsAboutShelter
+- [x] GetOpinionsAboutShelter
   - paramètres : page = getOpinionsAboutShelter, idShelter
   - forme réponse : {'idOpinion1' => Opinion, 'idOpinion2' => Opinion, ...}
 
