@@ -5,7 +5,7 @@ require_once 'models/Shelter.php';
 
 class User {
 
-private $idUser;
+public $idUser;
 private $nickname;
 private $password;
 private $mail;
