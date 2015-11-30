@@ -37,9 +37,8 @@ private $lastname;
       $userArray['lastname'] = $user->lastname;
       return $userArray;
     } else {
-      return "Unknown user";
+      return "Unknown user : ".$nickname;
     }
-
   }
 
 /**
@@ -48,8 +47,7 @@ private $lastname;
   public static function isUserExistInDataBase($nickname) {
       $db = DbManager::getPDO();
       $query = "SELECT nickname FROM User WHERE nickname='".$nickname."';";
-      $res = $db->query($query)->fetch();
-      return $result['nickname'] === $nickname;
+      return ($db->exec($query)>=0);
   }
 
   /**
