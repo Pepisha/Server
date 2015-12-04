@@ -2,5 +2,6 @@
 
 require_once 'models/User.php';
 
-$deleteResult = User::delete($_POST['nickname']);
+$user = new User($_POST['nickname']);
+$deleteResult = $user->delete();
 echo json_encode(['success' => $deleteResult]);

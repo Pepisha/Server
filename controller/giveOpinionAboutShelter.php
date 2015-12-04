@@ -2,7 +2,8 @@
 
 require_once 'models/Opinion.php';
 
-$result = Opinion::addOpinion($_POST['stars'], $_POST['description'], $_POST['nickname'], $_POST['idShelter']);
+$user = new User($_POST['nickname']);
+$result = Opinion::addOpinionInDataBase($_POST['stars'], $_POST['description'], $user->getId(), $_POST['idShelter']);
 
 if(gettype($result) === "string") {
   $response = ['success' => false, 'error' => $result];

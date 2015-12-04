@@ -2,7 +2,8 @@
 
 require_once 'models/User.php';
 
-$followResult = User::followShelter($_POST['nickname'],$_POST['idShelter']);
+$user = new User($_POST['nickname']);
+$followResult = $user->followShelter($_POST['idShelter']);
 if(gettype($followResult)==="string") {
   $result = ['success' => false, 'error' => $followResult];
 } else {

@@ -2,6 +2,7 @@
 
 require_once 'models/Opinion.php';
 
-$listOpinions = Opinion::getOpinionsAboutShelter($_POST['idShelter']);
+$shelter = new Shelter($_POST['idShelter']);
+$listOpinions = $shelter->getOpinions();
 
 echo json_encode($listOpinions);

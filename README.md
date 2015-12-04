@@ -34,13 +34,17 @@ Serveur de l'application Find Yours Pets.
   - paramètres : page = getUsersAnimals, nickname
   - forme réponse : {'idAnimal1' => Animal, 'idAnimal2' => Animal, ...}
 
-- [ ] IsFollowingAnimal
+- [x] IsFollowingAnimal
   - paramètres : page = isFollowingAnimal, nickname, idAnimal
   - forme réponse : {'following' => [true]/[false]}
 
 - [x] FollowAnimal
   - paramètres : page = followAnimal, nickname, idAnimal
   - forme réponse : {'success' => [true]/[false], 'error' => 'message erreur'}
+
+- [x] UnfollowAnimal
+  - paramètres : page = unfollowAnimal, nickname, idAnimal
+  - forme réponse : {'success' => [true]/[false]}
 
 - [x] FollowShelter
   - paramètres : page = followShelter, nickname, idAnimal
@@ -63,7 +67,7 @@ Serveur de l'application Find Yours Pets.
   - forme réponse : {'idAnimal' => Animal }
 
 - [x] AddAnimalInShelter
-  - paramètres : page = addAnimalInShelter, type, name, breed, age, gender, catsFriend, dogsFriend, childrenFriend, description, state, idShelter
+  - paramètres : page = addAnimalInShelter, idShelter, idAnimal
   - forme réponse : {'success' => [true]/[false], 'error' => 'message erreur'}
 
 - [x] ChangeAnimalsStatus

@@ -2,7 +2,8 @@
 
 require_once 'models/Animal.php';
 
-$result = Animal::getAnimalInformations($_POST['idAnimal']);
+$animal = new Animal($_POST['idAnimal']);
+$result = $animal->getInformations();
 if(gettype($result)==="string") {
   $resultToSend = ['success' => false, 'error' => $result];
 } else {

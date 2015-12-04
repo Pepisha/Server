@@ -2,6 +2,8 @@
 
 require_once 'models/Shelter.php';
 
-$result = Shelter::addAdministrator($_POST['idShelter'],$_POST['nickname']);
+$shelter = new Shelter($_POST['idShelter']);
+$user = new User($_POST['nickname']);
+$result = $shelter->addAdministrator($user->getId());
 
 echo json_encode(["success" => $result]);

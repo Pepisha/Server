@@ -5,13 +5,13 @@ require_once 'models/Shelter.php';
 
 class User {
 
-public $idUser;
-private $nickname;
-private $password;
-private $mail;
-private $phone;
-private $firstname;
-private $lastname;
+  private $idUser;
+  private $nickname;
+  private $password;
+  private $mail;
+  private $phone;
+  private $firstname;
+  private $lastname;
 
   public function __construct($nickname) {
     $db = DbManager::getPDO();
@@ -26,19 +26,18 @@ private $lastname;
     $this->lastname = $res['lastname'];
   }
 
-  public static function getUsersInformationsArray($nickname) {
-    if(User::isUserExistInDataBase($nickname)) {
-      $user = new User($nickname);
-      $userArray['nickname'] = $user->nickname;
-      $userArray['password'] = $user->password;
-      $userArray['mail'] = $user->mail;
-      $userArray['phone'] = $user->phone;
-      $userArray['firstname'] = $user->firstname;
-      $userArray['lastname'] = $user->lastname;
-      return $userArray;
-    } else {
-      return "Unknown user : ".$nickname;
-    }
+  public function getId() {
+    return $this->idUser;
+  }
+
+  public function getUsersInformationsArray() {
+    $userArray['nickname'] = $this->nickname;
+    $userArray['password'] = $this->password;
+    $userArray['mail'] = $this->mail;
+    $userArray['phone'] = $this->phone;
+    $userArray['firstname'] = $this->firstname;
+    $userArray['lastname'] = $this->lastname;
+    return $userArray;
   }
 
 /**
@@ -98,10 +97,10 @@ private $lastname;
    * @action met à jour le mail de l'utilisateur si newMail est différent de null
    * @return true si tout va bien, false s'il y a eu une erreur au moment de la requete sql.
    */
-  private static function updateMailIfNeeded($nickname, $newMail) {
+  private function updateMailIfNeeded($newMail) {
     if(!empty($newMail)) {
       $db = DbManager::getPDO();
-      $query = "UPDATE User SET email = '".$newMail."' WHERE nickname = '".$nickname."'";
+      $query = "UPDATE User SET email = '".$newMail."' WHERE nickname = '".$this->nickname."'";
       return $db->query($query);
     }
     return true;
@@ -111,11 +110,11 @@ private $lastname;
    * @action met à jour le password de l'utilisateur si possible
    * @return true si tout va bien, false si erreur sql ou newPassword !== confirmNewPassword
    */
-  private static function updatePasswordIfNeeded($nickname, $newPassword, $confirmNewPassword) {
+  private function updatePasswordIfNeeded($newPassword, $confirmNewPassword) {
     if(!empty($newPassword) && !empty($confirmNewPassword)) {
       if($newPassword === $confirmNewPassword) {
         $db = DbManager::getPDO();
-        $query = "UPDATE User SET password = '".$newPassword."' WHERE nickname = '".$nickname."'";
+        $query = "UPDATE User SET password = '".$newPassword."' WHERE nickname = '".$this->nickname."'";
         return $db->query($query);
       } else {
         return false;
@@ -129,10 +128,10 @@ private $lastname;
    * @action met à jour le phone de l'utilisateur si newPhone est différent de null
    * @return true si tout va bien, false s'il y a eu une erreur au moment de la requete sql.
    */
-  private static function updatePhoneIfNeeded($nickname, $newPhone) {
+  private function updatePhoneIfNeeded($newPhone) {
     if(!empty($newPhone)) {
       $db = DbManager::getPDO();
-      $query = "UPDATE User SET phone = '".$newPhone."' WHERE nickname = '".$nickname."'";
+      $query = "UPDATE User SET phone = '".$newPhone."' WHERE nickname = '".$this->nickname."'";
       return $db->query($query);
     } else {
       return true;
@@ -143,10 +142,10 @@ private $lastname;
    * @action met à jour le firstname de l'utilisateur si newFirstname est différent de null
    * @return true si tout va bien, false s'il y a eu une erreur au moment de la requete sql.
    */
-  private static function updateFirstnameIfNeeded($nickname, $newFirstname) {
+  private function updateFirstnameIfNeeded($newFirstname) {
     if(!empty($newFirstname)) {
       $db = DbManager::getPDO();
-      $query = "UPDATE User SET firstname = '".$newFirstname."' WHERE nickname = '".$nickname."'";
+      $query = "UPDATE User SET firstname = '".$newFirstname."' WHERE nickname = '".$this->nickname."'";
       return $db->query($query);
     } else {
       return true;
@@ -157,10 +156,10 @@ private $lastname;
    * @action met à jour le lastname de l'utilisateur si newLastname est différent de null
    * @return true si tout va bien, false s'il y a eu une erreur au moment de la requete sql.
    */
-  private static function updateLastnameIfNeeded($nickname, $newLastname) {
+  private function updateLastnameIfNeeded($newLastname) {
     if(!empty($newLastname)) {
       $db = DbManager::getPDO();
-      $query = "UPDATE User SET lastname = '".$newLastname."' WHERE nickname = '".$nickname."'";
+      $query = "UPDATE User SET lastname = '".$newLastname."' WHERE nickname = '".$this->nickname."'";
       return $db->query($query);
     } else {
       return true;
@@ -172,72 +171,71 @@ private $lastname;
    * @return true si tout c'est bien passé, false si un problème a été rencontré à la MAJ d'un champ,
    *         "Unknown nickname" si le pseudo de l'utilisateur est inconnu.
    */
-  public static function updateProfile($nickname, $newPassword, $confirmNewPassword, $newMail, $newPhone, $newFirstname, $newLastname) {
-    if(User::isUserExistInDataBase($nickname)) {
-      return User::updateMailIfNeeded($nickname, $newMail)
-          && User::updatePasswordIfNeeded($nickname, $newPassword, $confirmNewPassword)
-          && User::updatePhoneIfNeeded($nickname, $newPhone)
-          && User::updateFirstnameIfNeeded($nickname, $newFirstname)
-          && User::updateLastnameIfNeeded($nickname, $newLastname);
-    } else {
-      return "Unknown nickname";
-    }
+  public function updateProfile($newPassword, $confirmNewPassword, $newMail, $newPhone, $newFirstname, $newLastname) {
+    return $this->updateMailIfNeeded($newMail)
+        && $this->updatePasswordIfNeeded($newPassword, $confirmNewPassword)
+        && $this->updatePhoneIfNeeded($newPhone)
+        && $this->updateFirstnameIfNeeded($newFirstname)
+        && $this->updateLastnameIfNeeded($newLastname);
   }
 
   /**
    * @return true si la suppression c'est bien passée, false sinon.
    */
-  public static function deleteUser($nickname) {
+  public function delete() {
       $db = DbManager::getPDO();
-      $query = "DELETE FROM User WHERE nickname = '".$nickname."'";
+      $query = "DELETE FROM User WHERE nickname = '".$this->nickname."'";
       return $db->query($query);
   }
 
+  public function isFollowingAnimal($idAnimal) {
+    $db = DbManager::getPDO();
+    $query = "SELECT idUser FROM FollowAnimal WHERE idUser=".$this->idUser." AND idAnimal=".$idAnimal.";";
+    $result = $db->query($query)->fetch();
+    return $result['idUser'] === $this->idUser;
+  }
 
-
-  public static function followAnimal($nickname, $idAnimal) {
-    if(User::isUserExistInDataBase($nickname)) {
-      if(Animal::isAnimalExistInDataBase($idAnimal)) {
-        $db = DbManager::getPDO();
-        $user = new User($nickname);
-        $query = "INSERT INTO FollowAnimal(idUser, idAnimal) VALUES (".$user->nickname.",".$idAnimal.")";
-        return ($db->exec($query)>=0);
-      } else {
-        return "Unknown animal";
-      }
+  public function followAnimal($idAnimal) {
+    if(Animal::isAnimalExistInDataBase($idAnimal)) {
+      $db = DbManager::getPDO();
+      $query = "INSERT INTO FollowAnimal(idUser, idAnimal) VALUES (".$this->idUser.",".$idAnimal.")";
+      return ($db->exec($query)>=0);
     } else {
-      return "Unknown user";
+      return "Unknown animal";
     }
   }
 
-  public static function followShelter($nickname, $idShelter) {
-    if(User::isUserExistInDataBase($nickname)) {
-      if(Shelter::isShelterExistInDataBase($idShelter)) {
-        $db = DbManager::getPDO();
-        $user = new User($nickname);
-        $query = "INSERT INTO FollowShelter(idUser, idShelter) VALUES (".$user->nickname.",".$idShelter.")";
-        return ($db->exec($query)>=0);
-      } else {
-        return "Unknown shelter";
-      }
+  public function unfollowAnimal($idAnimal) {
+    $db = DbManager::getPDO();
+    $query = "DELETE FROM FollowAnimal WHERE idUser = ".$this->idUser." AND idAnimal = " . $idAnimal;
+    return $db->query($query);
+  }
+
+  public function followShelter($idShelter) {
+    if(Shelter::isShelterExistInDataBase($idShelter)) {
+      $db = DbManager::getPDO();
+      $query = "INSERT INTO FollowShelter(idUser, idShelter) VALUES (".$this->idUser.",".$idShelter.")";
+      return ($db->exec($query)>=0);
     } else {
-      return "Unknown user";
+      return "Unknown shelter";
     }
   }
 
-  public static function getUsersAnimals($nickname) {
-      if(User::isUserExistInDataBase($nickname)) {
-          $db = DbManager::getPDO();
-          $user = new User($nickname);
-          $req = "SELECT * FROM Animal an, Adopt ad WHERE an.idAnimal=ad.idAnimal AND ad.idUser=".$user->idUser."";
-          $res = $db->query($query);
-          for($i = 0; $i < count($res); $i++) {
-              $animal = Animal::getAnimalArrayFromFetch($res[$i]);
-              $listUsersAnimals[$animal['idAnimal']] = $animal;
-          }
-          return $listUsersAnimals;
-      } else {
-          return "Unknown user";
-      }
+  public function unfollowShelter($idShelter) {
+    $db = DbManager::getPDO();
+    $query = "DELETE FROM FollowShelter WHERE idUser = ".$this->idUser." AND idShelter = " . $idShelter;
+    return $db->query($query);
+  }
+
+  public function getAnimals() {
+    $db = DbManager::getPDO();
+    $req = "SELECT * FROM Animal an, Adopt ad WHERE an.idAnimal=ad.idAnimal AND ad.idUser=".$this->idUser."";
+    $res = $db->query($query);
+    for($i = 0; $i < count($res); $i++) {
+        $animal = Animal::getAnimalArrayFromFetch($res[$i]);
+        $listUsersAnimals[$animal['idAnimal']] = $animal;
+    }
+
+    return $listUsersAnimals;
   }
 }
