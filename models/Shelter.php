@@ -47,27 +47,10 @@ class Shelter {
     return $db->exec($query);
   }
 
-  private static function linkAnimalToShelter($idAnimal, $idShelter) {
+  public function addAnimal($idAnimal){
     $db = DbManager::getPDO();
-    $query = "INSERT INTO AnimalShelter(idAnimal, idShelter) VALUES (".$idAnimal.",".$idShelter.")";
+    $query = "INSERT INTO AnimalShelter(idAnimal, idShelter) VALUES (".$idAnimal.",".$this->idShelter.")";
     return $db->exec($query);
-  }
-
-  public static function addAnimalInShelter($idShelter, $type, $name, $breed, $age, $gender, $catsFriend, $dogsFriend, $childrenFriend, $description, $state){
-    if(Shelter::isShelterExistInDataBase($idShelter)) {
-      $addAnimalResult = Animal::addAnimalInDataBase($type, $name, $breed, $age, $gender, $catsFriend, $dogsFriend,
-                                                     $childrenFriend, $description, $state);
-      if($addAnimalResult) {
-        $idAnimal = Animal::getIdAnimal($type, $name, $breed, $age, $gender, $catsFriend, $dogsFriend,
-                                        $childrenFriend, $description, $state);
-        $linkResult = Shelter::linkAnimalToShelter($idAnimal,$idShelter);
-        return $linkResult;
-      } else {
-        return $addAnimalResult;
-      }
-    } else {
-      return "Unknown shelter";
-    }
   }
 
   /**
@@ -101,9 +84,9 @@ class Shelter {
     return $listShelters;
   }
 
-  public static function getSheltersAnimals($idShelter) {
+  public function getAnimals() {
     $db = DbManager::getPDO();
-    $query = "SELECT * FROM Animal WHERE idShelter = ".$idShelter." AND idState = ".Animal::$STATE_ADOPTION.";";
+    $query = "SELECT * FROM Animal WHERE idShelter = ".$this->idShelter." AND idState = ".Animal::$STATE_ADOPTION.";";
     $res = $db->query($query)->fetchAll();
     for ($i=0; $i<count($res); $i++) {
       $animal = Animal::getAnimalArrayFromFetch($res[$i]);
@@ -114,69 +97,45 @@ class Shelter {
   }
 
   /**
-   * @return true si l'enregistrement en bdd c'est bien fais, false sinon
+   * @return true si l'enregistrement en bdd c'est bien fait
+   *          "Unknown user" si l'utilisateur n'est pas dans la BDD
    */
-  private static function addAdministratorInDataBase($idShelter, $idUser) {
-    $db = DbManager::getPDO();
-    $query = "INSERT INTO IsAdmin(idUser, idShelter)
-              VALUES (".$idUser.", ".$idShelter.");";
-    return ($db->exec($query)>=0);
-  }
-
-  /**
-   * @return true si les données existent,
-   *         "Unknown shelter" si le refuge n'est pas dans la BDD,
-   *         "Unknown user" si l'utilisateur n'est pas dans la BDD
-   */
-  private static function checkIfShelterAndUserExists($idShelter, $nickname) {
-    if(Shelter::isShelterExistInDataBase($idShelter)) {
-      if(User::isUserExistInDataBase($nickname)) {
-          return true;
-        } else {
-          return "Unknown user";
-        }
-      } else {
-        return "Unknown shelter";
-      }
-  }
-
-  /**
-   * @return true si l'enregistrement c'est bien fais, false sinon,
-   *         "Unknown shelter" si le refuge n'est pas dans la BDD,
-   *         "Unknown user" si l'utilisateur n'est pas dans la BDD
-   */
-  public static function addAdministrator($idShelter, $nickname) {
-      $check = checkIfShelterAndUserExists($idShelter, $nickname);
-      if($check) {
-        $user = new User($nickname);
-        return Shelter::addAdministratorInDataBase($idShelter,$user->idUser);
-      } else {
-        return $check;
-      }
-  }
-
-  /**
-   * @return true si l'enregistrement en bdd c'est bien fais, false sinon
-   */
-  private static function addManagerInDataBase($idShelter, $idUser) {
-    $db = DbManager::getPDO();
-    $query = "INSERT INTO Manages(idUser, idShelter)
-              VALUES (".$idUser.", ".$idShelter.");";
-    return ($db->exec($query)>=0);
-  }
-
-  /**
-   * @return true si l'enregistrement c'est bien fais, false sinon,
-   *         "Unknown shelter" si le refuge n'est pas dans la BDD,
-   *         "Unknown user" si l'utilisateur n'est pas dans la BDD
-   */
-  public static function addManager($idShelter, $nickname) {
-    $check = checkIfShelterAndUserExists($idShelter, $nickname);
-    if($check) {
-      $user = new User($nickname);
-      return Shelter::addManagerInDataBase($idShelter,$user->idUser);
+  private function addAdministrator($idUser) {
+    if(User::isUserExistInDataBase($nickname)) {
+      $db = DbManager::getPDO();
+      $query = "INSERT INTO IsAdmin(idUser, idShelter)
+                VALUES (".$idUser.", ".$this->idShelter.");";
+      return ($db->exec($query)>=0);
+    } else {
+      return "Unknown user";
     }
-    return $check;
+  }
+
+  /**
+   * @return true si l'enregistrement c'est bien fais, false sinon,
+   *         "Unknown user" si l'utilisateur n'est pas dans la BDD
+   */
+  public function addManager($idUser) {
+    if(User::isUserExistInDataBase($nickname)) {
+      $db = DbManager::getPDO();
+      $query = "INSERT INTO Manages(idUser, idShelter)
+                VALUES (".$idUser.", ".$idShelter.");";
+      return ($db->exec($query)>=0);
+    } else {
+      return "Unknown user";
+    }
+  }
+
+  public function getOpinions() {
+    $db = DbManager::getPDO();
+    $query = "SELECT * FROM Opinion WHERE idShelter = ".$this->idShelter.";";
+    $res = $db->query($query)->fetchAll();
+
+    for ($i=0; $i<count($res); $i++) {
+      $opinion = Opinion::getOpinionArrayFromFetch($res[$i]);
+      $listOpinions[$opinion['idOpinion']] = $opinion;
+    }
+    return $listOpinions;
   }
 }
 

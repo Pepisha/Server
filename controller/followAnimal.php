@@ -2,7 +2,8 @@
 
 require_once 'models/User.php';
 
-$followResult = User::followAnimal($_POST['nickname'],$_POST['idAnimal']);
+$user = new User($_POST['nickname']);
+$followResult = $user->followAnimal($_POST['idAnimal']);
 if(gettype($followResult)==="string") {
   $result = ['success' => false, 'error' => $followResult];
 } else {

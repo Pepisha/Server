@@ -2,7 +2,8 @@
 
 require_once 'models/Animal.php';
 
-$updateStatus = Animal::updateStatus($_POST['idAnimal'],$_POST['newStatus']);
+$animal = new Animal($_POST['idAnimal']);
+$updateStatus = $animal->updateStatus($_POST['newStatus']);
 if(gettype($updateStatus)==="string") {
   $result = ['success' => false, 'error' => $updateStatus];
 } else {

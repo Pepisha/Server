@@ -2,7 +2,8 @@
 
 require_once 'models/User.php';
 
-$result = User::getUsersInformationsArray($_POST['nickname']);
+$user = new User($_POST['nickname']);
+$result = $user->getUsersInformationsArray($_POST['nickname']);
 if(gettype($result)==="string") {
   $resultToSend = ['success' => false, 'error' => $result];
 } else {

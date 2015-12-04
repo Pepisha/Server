@@ -59,31 +59,15 @@
      * @return true/false suivant le resultat de la requete,
      *        "Unknown animal" si l'animal n'est pas présent dans la BDD
      */
-    public static function updateStatus($idAnimal, $newStatus) {
-      if(Animal::isAnimalExistInDataBase($idAnimal)) {
-        $db = DbManager::getPDO();
-        $query = "UPDATE Animal SET idState = ".$newStatus." WHERE idAnimal = ".$idAnimal.";";
-        return ($db->exec($query)>=0);
-      } else {
-        return "Unknown animal";
-      }
-    }
-
-    /**
-     * @return l'identifiant de l'animal en question
-     */
-    public static function getAnimalsId($type, $name, $breed, $age, $gender, $catsFriend, $dogsFriend,
-                                        $childrenFriend, $description, $state) {
+    public function updateStatus($newStatus) {
       $db = DbManager::getPDO();
-      $query = "SELECT idAnimal FROM Animal WHERE type=".$type.", name='".$name."', age='".$age."', gender='".$gender."', catsFriend='".$catsFriend."'
-                ,dogsFriend='".$dogsFriend."', childrenFriend='".$childrenFriend."', description='".$description."', idState='".$state."';";
-      $res = $db->query($query)->fetch();
-      return $res['idAnimal'];
+      $query = "UPDATE Animal SET idState = ".$newStatus." WHERE idAnimal = ".$this->idAnimal.";";
+      return ($db->exec($query)>=0);
     }
 
     /**
      * @return transforme le résultat du fetch d'un animal en un tableau contenant
-     *         les informations de l'animal pour ensuite le transmettre au clien
+     *         les informations de l'animal pour ensuite le transmettre au client
      */
     public static function getAnimalArrayFromFetch($animal) {
       $animalArray["idAnimal"] = intval($animal["idAnimal"]);
@@ -116,25 +100,20 @@
       return $listAnimals;
     }
 
-    public static function getAnimalInformations($idAnimal) {
-      if(Animal::isAnimalExistInDataBase($idAnimal)) {
-        $animal = new Animal($idAnimal);
-        $animalArray['idAnimal'] = $animal->idAnimal;
-        $animalArray["idAnimal"] = intval($animal->idAnimal);
-        $animalArray["idType"] = intval($animal->idType);
-        $animalArray["name"] = $animal->name;
-        $animalArray["breed"] = $animal->breed;
-        $animalArray["age"] = $animal->age;
-        $animalArray["gender"] = $animal->gender;
-        $animalArray["catsFriend"] = $animal->catsFriend;
-        $animalArray["dogsFriend"] = $animal->dogsFriend;
-        $animalArray["childrenFriend"] = $animal->childrenFriend;
-        $animalArray["description"] = $animal->description;
-        $animalArray["idState"] = intval($animal->idState);
-        return $animalArray;
-      } else {
-        return "Unknown animal";
-      }
+    public static function getInformations() {
+      $animalArray['idAnimal'] = $this->idAnimal;
+      $animalArray["idAnimal"] = intval($this->idAnimal);
+      $animalArray["idType"] = intval($this->idType);
+      $animalArray["name"] = $this->name;
+      $animalArray["breed"] = $this->breed;
+      $animalArray["age"] = $this->age;
+      $animalArray["gender"] = $this->gender;
+      $animalArray["catsFriend"] = $this->catsFriend;
+      $animalArray["dogsFriend"] = $this->dogsFriend;
+      $animalArray["childrenFriend"] = $this->childrenFriend;
+      $animalArray["description"] = $this->description;
+      $animalArray["idState"] = intval($this->idState);
+      return $animalArray;
     }
   }
 

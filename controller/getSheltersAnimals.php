@@ -2,6 +2,7 @@
 
 require_once 'models/Shelter.php';
 
-$listAnimals = Shelter::getSheltersAnimals();
+$shelter = new Shelter($_POST['idShelter']);
+$listAnimals = $shelter->getAnimals();
 
 echo json_encode($listAnimals);

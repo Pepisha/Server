@@ -29,23 +29,14 @@ class Opinion {
     }
 
     public static function addOpinionInDataBase($stars, $description, $idUser, $idShelter) {
+      if(Shelter::isShelterExistInDataBase($idShelter)) {
         $db = DbManager::getPDO();
         $query = "INSERT INTO Opinion(stars, description, idUser, idShelter) "
                 ."VALUES (".$stars.", '".$description."',".$idUser.",".$idShelter.")";
         return ($db->exec($query)>=0);
-    }
-
-    public static function addOpinion($stars, $description, $nickname, $idShelter) {
-        if(User::isUserExistInDataBase($nickname)) {
-            if(Shelter::isShelterExistInDataBase($idShelter)) {
-                $user = new User($nickname);
-                return Opinion::addOpinionInDataBase($stars, $description, $user->idUser, $idShelter);
-            } else {
-                return "Unknown shelter";
-            }
-        } else {
-            return "Unknown user";
-        }
+      } else {
+          return "Unknown shelter";
+      }
     }
 
     public static function getOpinionArrayFromFetch($opinion) {
@@ -56,22 +47,4 @@ class Opinion {
       $opinionArray["idShelter"] = intval($res['idShelter']);
       return $opinionArray;
     }
-
-    public static function getOpinionsAboutShelter($idShelter) {
-      if(Shelter::isShelterExistInDataBase($idShelter)) {
-        $db = DbManager::getPDO();
-        $query = "SELECT * FROM Opinion WHERE idShelter = ".$idShelter.";";
-        $res = $db->query($query)->fetchAll();
-
-        for ($i=0; $i<count($res); $i++) {
-          $opinion = Opinion::getOpinionArrayFromFetch($res[$i]);
-          $listOpinions[$opinion['idOpinion']] = $opinion;
-        }
-        return $listOpinions;
-
-      } else {
-        return "Unknown shelter";
-      }
-    }
-
 }

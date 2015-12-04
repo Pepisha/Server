@@ -2,6 +2,7 @@
 
 require_once 'models/User.php';
 
-$listAnimals = User::getUsersAnimals($nickname);
+$user = new User($nickname);
+$listAnimals = $user->getAnimals();
 
 echo json_encode($listAnimals);
