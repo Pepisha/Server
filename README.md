@@ -90,6 +90,18 @@ Serveur de l'application Find Yours Pets.
   - paramètres : page = getSheltersAnimals, idShelter
   - forme réponse : {'idAnimal1' => Animal, 'idAnimal2' => Animal, ...}
 
+- [ ] IsAdministrator
+  - paramètres : page = isAdministrator, nickname
+  - forme réponse : {'admin' => [true]/[false]}
+
+- [x] IsShelterAdministrator
+  - paramètres : page = isShelterAdministrator, idShelter, nickname
+  - forme réponse : {'admin' => [true]/[false]}
+
+- [x] IsShelterManager
+  - paramètres : page = isShelterManager, idShelter, nickname
+  - forme réponse : {'manager' => [true]/[false]}
+
 - [x] AddShelterAdministrator
   - paramètres : page = addShelterAdministrator, idShelter, nickname
   - forme réponse : {'success' => [true]/[false]}
