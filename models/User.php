@@ -190,7 +190,7 @@ class User {
 
   public function isFollowingAnimal($idAnimal) {
     $db = DbManager::getPDO();
-    $query = "SELECT idUser FROM FollowAnimal WHERE idUser=".$this->idUser." AND idAnimal=".$idAnimal.";";
+    $query = "SELECT idUser FROM FollowAnimal WHERE idUser=".$this->idUser." AND idAnimal=".$idAnimal;
     $result = $db->query($query)->fetch();
     return $result['idUser'] === $this->idUser;
   }

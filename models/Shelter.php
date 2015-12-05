@@ -96,11 +96,18 @@ class Shelter {
     return $listAnimals;
   }
 
+  public function isAdministrator($idUser) {
+    $db = DbManager::getPDO();
+    $query = "SELECT idShelter FROM IsAdmin WHERE idShelter=".$this->idShelter." AND idUser=".$idUser;
+    $result = $db->query($query)->fetch();
+    return $result['idShelter'] === $this->idShelter;
+  }
+
   /**
    * @return true si l'enregistrement en bdd c'est bien fait
    *          "Unknown user" si l'utilisateur n'est pas dans la BDD
    */
-  private function addAdministrator($idUser) {
+  public function addAdministrator($idUser) {
     if(User::isUserExistInDataBase($nickname)) {
       $db = DbManager::getPDO();
       $query = "INSERT INTO IsAdmin(idUser, idShelter)
@@ -109,6 +116,13 @@ class Shelter {
     } else {
       return "Unknown user";
     }
+  }
+
+  public function isManager($idUser) {
+    $db = DbManager::getPDO();
+    $query = "SELECT idShelter FROM Manages WHERE idShelter=".$this->idShelter." AND idUser=".$idUser;
+    $result = $db->query($query)->fetch();
+    return $result['idShelter'] === $this->idShelter;
   }
 
   /**
