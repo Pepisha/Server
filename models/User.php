@@ -185,7 +185,7 @@ class User {
   public function delete() {
       $db = DbManager::getPDO();
       $query = "DELETE FROM User WHERE nickname = '".$this->nickname."'";
-      return $db->query($query);
+      return $db->exec($query) > 0;
   }
 
   public function isFollowingAnimal($idAnimal) {
@@ -208,7 +208,7 @@ class User {
   public function unfollowAnimal($idAnimal) {
     $db = DbManager::getPDO();
     $query = "DELETE FROM FollowAnimal WHERE idUser = ".$this->idUser." AND idAnimal = " . $idAnimal;
-    return $db->query($query);
+    return $db->query($query) > 0;
   }
 
   public function followShelter($idShelter) {
@@ -224,13 +224,13 @@ class User {
   public function unfollowShelter($idShelter) {
     $db = DbManager::getPDO();
     $query = "DELETE FROM FollowShelter WHERE idUser = ".$this->idUser." AND idShelter = " . $idShelter;
-    return $db->query($query);
+    return $db->exec($query) > 0;
   }
 
   public function getAnimals() {
     $db = DbManager::getPDO();
-    $req = "SELECT * FROM Animal an, Adopt ad WHERE an.idAnimal=ad.idAnimal AND ad.idUser=".$this->idUser."";
-    $res = $db->query($query);
+    $query = "SELECT * FROM Animal an, Adopt ad WHERE an.idAnimal=ad.idAnimal AND ad.idUser=".$this->idUser;
+    $res = $db->query($query)->fetchAll();
     for($i = 0; $i < count($res); $i++) {
         $animal = Animal::getAnimalArrayFromFetch($res[$i]);
         $listUsersAnimals[$animal['idAnimal']] = $animal;
