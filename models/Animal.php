@@ -43,18 +43,6 @@
     }
 
     /**
-     * @return true si l'ajout c'est bien passé, false sinon
-     */
-    public static function addAnimalInDataBase($type, $name, $breed, $age, $gender, $catsFriend, $dogsFriend,
-                                               $childrenFriend, $description, $state) {
-      $db = DbManager::getPDO();
-      $query = "INSERT INTO Animal(type, name, breed, age, gender, catsFriend, dogsFriend, childrenFriend, description, state)
-                VALUES (".$type.",'".$name."','".$breed."','".$age."','".$gender."','".$catsFriend."','".$dogsFriend."','".$childrenFriend."',
-                '".$description."',".$state.");";
-      return $db->exec($query);
-    }
-
-    /**
      * @action met à jour le statut de l'animal
      * @return true/false suivant le resultat de la requete,
      *        "Unknown animal" si l'animal n'est pas présent dans la BDD
