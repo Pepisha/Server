@@ -47,9 +47,13 @@ class Shelter {
     return $db->exec($query);
   }
 
-  public function addAnimal($idAnimal){
+  public function addAnimal($type, $name, $breed, $age, $gender, $catsFriend, $dogsFriend,
+                                               $childrenFriend, $description) {
     $db = DbManager::getPDO();
-    $query = "INSERT INTO AnimalShelter(idAnimal, idShelter) VALUES (".$idAnimal.",".$this->idShelter.")";
+    $query = "INSERT INTO Animal(idType, name, breed, age, gender, catsFriend, dogsFriend, childrenFriend, description, idState, idShelter)
+                VALUES (".$type.",'".$name."','".$breed."','".$age."','".$gender."','".$catsFriend."','".$dogsFriend."','".$childrenFriend."',
+                '".$description."',".Animal::$STATE_ADOPTION.",".$this->idShelter.");";
+
     return $db->exec($query);
   }
 
