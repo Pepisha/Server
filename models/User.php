@@ -85,9 +85,9 @@ class User {
    */
   public static function addUserInDataBase($nickname, $password, $mail, $phone, $firstname, $lastname) {
     $db = DbManager::getPDO();
-    $query="INSERT INTO User(nickname, password, email, phone, firstname, lastname) VALUES ("
+    $query="INSERT INTO User(nickname, password, email, phone, firstname, lastname, admin) VALUES ("
             ."'".$nickname."','".$password."','".$mail."','"
-            .$phone."','".$firstname."','".$lastname."');";
+            .$phone."','".$firstname."','".$lastname."', 0);";
 
     $db->query($query);
     return new User($nickname);
