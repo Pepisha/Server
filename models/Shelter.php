@@ -68,6 +68,7 @@ class Shelter {
     $arrayShelter["idAddress"] = intval($shelter["idAddress"]);
     $arrayShelter["description"] = $shelter["description"];
     $arrayShelter["mail"] = $shelter["mail"];
+    $arrayShelter["website"] = $shelter["website"];
     $arrayShelter["operationalHours"] = $shelter["operationalHours"];
     $arrayShelter["idFacebook"] = intval($shelter["idFacebook"]);
     $arrayShelter["idTwitter"] = intval($shelter["idTwitter"]);
