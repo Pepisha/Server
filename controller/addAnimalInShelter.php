@@ -9,7 +9,7 @@ $addResult = $shelter->addAnimal($_POST['type'], $_POST['name'], $_POST['breed']
 if(gettype($addResult) === "string") {
   $response = ['success' => false, 'error' => $addResult];
 } else {
-  $response = ['success' => $addResult];
+  $response = ['success' => true];
 }
 
 echo json_encode($response);
