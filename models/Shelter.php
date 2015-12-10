@@ -38,12 +38,12 @@ class Shelter {
     return $res['idShelter'] === $idShelter;
   }
 
-  public static function addShelterInDataBase($name, $phone, $description, $email, $operationalHours, $street, $zipcode, $city, $latitude, $longitude){
+  public static function addShelterInDataBase($name, $phone, $description, $email, $website, $operationalHours, $street, $zipcode, $city, $latitude, $longitude){
     $db = DbManager::getPDO();
     $idAddress = Address::addAddress($street, $zipcode, $city, $latitude, $longitude);
 
-    $query = "INSERT INTO Shelter(name, phone, idAddress, description, mail, operationalHours )
-              VALUES ('".$name."','".$phone."','".$idAddress."','".$description."','".$mail."','".$operationalHours."')";
+    $query = "INSERT INTO Shelter(name, phone, idAddress, description, mail, website, operationalHours )
+              VALUES ('".$name."','".$phone."','".$idAddress."','".$description."','".$mail."','".$website."','".$operationalHours."')";
     return $db->exec($query);
   }
 

@@ -79,7 +79,7 @@ Serveur de l'application Find Yours Pets.
   - forme réponse : {'idShelter1' => Shelter, 'idShelter2' => Shelter, ...}
 
 - [x] AddShelter
-  - paramètres : page = addShelter, name, phone, description, mail, operationalHours, street, zipcode, city, latitude, longitude
+  - paramètres : page = addShelter, name, phone, description, mail, website,operationalHours, street, zipcode, city, latitude, longitude
   - forme réponse : {'success' => [true]/[false]}
 
 - [ ] GetShelter
