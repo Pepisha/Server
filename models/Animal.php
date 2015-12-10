@@ -32,6 +32,10 @@
       $this->state = $res['idState'];
     }
 
+    public function getName() {
+      return $this->name;
+    }
+
     /**
      * @return true si l'animal est présent dans la BDD, false sinon.
      */
@@ -102,8 +106,10 @@
       $animalArray["idState"] = intval($this->idState);
       return $animalArray;
     }
+
+    public function addPhoto($name, $description) {
+      return Photo::addPhotoInDataBase($name, $description, $this->idAnimal, 2);
+    }
   }
-
-
 
  ?>
