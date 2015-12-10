@@ -243,7 +243,7 @@ class User {
 
   public function getFollowedAnimals() {
     $db = DbManager::getPDO();
-    $query = "SELECT * FROM Animal an, FollowAnimal fa WHERE an.idAnimal = fa.idAnimal AND fa.idUser = '".$this->idUser."'";
+    $query = "SELECT * FROM Animal an, FollowAnimal fa WHERE an.idAnimal = fa.idAnimal AND fa.idUser = ".$this->idUser.";";
     $res = $db->query($query)->fetchAll();
     for($i = 0; i < count($res); $i++) {
       $animal = Animal::getAnimalArrayFromFetch($res[$i]);
@@ -251,6 +251,18 @@ class User {
     }
 
     return $listFollowedAnimals;
+  }
+
+  public function getFollowedShelters() {
+    $db = DbManager::getPDO();
+    $query = "SELECT * FROM Shelter s, FollowShelter fs WHERE s.idShelter = fs.idShelter AND fs.idUser = ".$this->idUser.";";
+    $res = $db->query($query)->fetchAll();
+    for($i = 0; i < count($res); $i++) {
+      $shelter = Shelter::getShelterArrayFromFetch($res[$i]);
+      $listFollowedShelters[$shelter['idShelter']] = $animal;
+    }
+
+    return $listFollowedShelters;
   }
 
   public function isAdmin() {
