@@ -10,6 +10,7 @@ class Shelter {
   private $idAddress;
   private $description;
   private $email;
+  private $website;
   private $operationalHours;
   private $idFacebook;
   private $idTwitter;
@@ -25,10 +26,23 @@ class Shelter {
     $this->idAddress = $res['idAddress'];
     $this->description = $res['description'];
     $this->email = $res['email'];
+    $this->website = $res["website"];
     $this->operationalHours = $res['operationalHours'];
     $this->idFacebook = $res['idFacebook'];
     $this->idTwitter = $res['idTwitter'];
     $this->idInstagram = $res['idInstagram'];
+  }
+
+  public function getInformations() {
+    $shelterArray["idShelter"] = intval($this->idShelter);
+    $shelterArray["name"] = $this->name;
+    $shelterArray["phone"] = $this->phone;
+    $shelterArray["idAddress"] = intval($this->idAddress);
+    $shelterArray["description"] = $this->description;
+    $shelterArray["email"] = $this->email;
+    $shelterArray["website"] = $this->website;
+    $shelterArray["operationalHours"] = $this->operationalHours;
+    return $shelterArray;
   }
 
   public static function isShelterExistInDataBase($idShelter) {

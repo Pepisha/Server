@@ -88,8 +88,7 @@
       return $listAnimals;
     }
 
-    public static function getInformations() {
-      $animalArray['idAnimal'] = $this->idAnimal;
+    public function getInformations() {
       $animalArray["idAnimal"] = intval($this->idAnimal);
       $animalArray["idType"] = intval($this->idType);
       $animalArray["name"] = $this->name;
