@@ -12,6 +12,7 @@ class User {
   private $phone;
   private $firstname;
   private $lastname;
+  private $admin;
 
   public function __construct($nickname) {
     $db = DbManager::getPDO();
@@ -24,6 +25,7 @@ class User {
     $this->phone = $res['phone'];
     $this->firstname = $res['firstname'];
     $this->lastname = $res['lastname'];
+    $this->admin = $res['admin'];
   }
 
   public function getId() {
@@ -237,5 +239,9 @@ class User {
     }
 
     return $listUsersAnimals;
+  }
+
+  public function isAdmin() {
+    return boolval($this->admin);
   }
 }
