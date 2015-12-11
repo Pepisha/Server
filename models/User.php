@@ -43,6 +43,7 @@ class User {
     $userArray['phone'] = $this->phone;
     $userArray['firstname'] = $this->firstname;
     $userArray['lastname'] = $this->lastname;
+    $userArray['admin'] = $this->admin;
     return $userArray;
   }
 
@@ -243,6 +244,31 @@ class User {
     }
 
     return $listUsersAnimals;
+  }
+
+  public static function getUserArrayFromFetch($user) {
+    $userArray["nickname"] = $user["nickname"];
+    $userArray['password'] = $user["password"];
+    $userArray['mail'] = $user["mail"];
+    $userArray['phone'] = $user["phone"];
+    $userArray['firstname'] = $user["firstname"];
+    $userArray['lastname'] = $user["lastname"];
+    $userArray['admin'] = $user["admins"];
+
+    return $userArray;
+  }
+
+  public static function getAllUsers() {
+    $db = DbManager::getPDO();
+    $query = "SELECT * FROM User";
+    $res = $db->query($query)->fetchAll();
+
+    for($i = 0; $i < count($res); $i++) {
+      $user = User::getUserArrayFromFetch($res[$i]);
+      $listUsers[$user['nickname']] = $user;
+    }
+
+    return $listUsers;
   }
 
   public function getFollowedAnimals() {

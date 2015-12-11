@@ -18,6 +18,10 @@ Serveur de l'application Find Yours Pets.
   - paramètres : page = register, nickname, password1, password2, mail, phone, firstname, lastname
   - forme réponse : {'success' => [true] / [false], 'error' => 'message erreur'}
 
+- [x] GetUsers
+  - paramètres : page = getUsers
+  - forme réponse : {'nickname1' => User, 'nickname2' => User, ...}
+
 - [x] UpdateUserProfile
   - paramètres : page = updateUserProfile, nickname, newPassword, confirmNewPassword, newMail, newPhone, newFirstname, newLastname
   - forme réponse : {'success' => [true]/[false], 'error' => 'message erreur'}
