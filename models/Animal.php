@@ -15,6 +15,8 @@
     public static $STATE_ADOPTED = 2;
     public static $STATE_ADOPTION = 1;
 
+    private static $SUBJECT_TYPE_ID = 2;
+
     public function __construct($idAnimal) {
       $db = DbManager::getPDO();
       $query = "SELECT * FROM Animal WHERE idAnimal = ".$idAnimal."";
@@ -57,6 +59,14 @@
       return ($db->exec($query)>=0);
     }
 
+    public static function getPhoto($idAnimal) {
+      $db = DbManager::getPDO();
+      $query = "SELECT name FROM Photo WHERE idSubjectType = " . self::$SUBJECT_TYPE_ID . " AND idSubject = " . $idAnimal . " LIMIT 1";
+      $res = $db->query($query)->fetch();
+
+      return $res['name'];
+    }
+
     /**
      * @return transforme le résultat du fetch d'un animal en un tableau contenant
      *         les informations de l'animal pour ensuite le transmettre au client
@@ -73,6 +83,7 @@
       $animalArray["childrenFriend"] = $animal["childrenFriend"];
       $animalArray["description"] = $animal["description"];
       $animalArray["idState"] = intval($animal["idState"]);
+      $animalArray["photo"] = Animal::getPhoto($animal["idAnimal"]);
       return $animalArray;
     }
 
@@ -104,11 +115,12 @@
       $animalArray["childrenFriend"] = $this->childrenFriend;
       $animalArray["description"] = $this->description;
       $animalArray["idState"] = intval($this->idState);
+      $animalArray["photo"] = getPhoto($this->idAnimal);
       return $animalArray;
     }
 
     public function addPhoto($name, $description) {
-      return Photo::addPhotoInDataBase($name, $description, $this->idAnimal, 2);
+      return Photo::addPhotoInDataBase($name, $description, $this->idAnimal, self::$SUBJECT_TYPE_ID);
     }
   }
 
