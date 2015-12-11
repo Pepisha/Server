@@ -12,7 +12,7 @@ Serveur de l'application Find Yours Pets.
 
 - [x] Login
   - paramètres :  page = login, nickname, password
-  - forme réponse : {'success' => [true]/[false]}
+  - forme réponse : {'success' => [true]/[false], 'isAdmin' => [true]/[false]}
 
 - [x] Register
   - paramètres : page = register, nickname, password1, password2, mail, phone, firstname, lastname

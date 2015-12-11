@@ -8,7 +8,9 @@ $password = $_POST['password'];
 
 if (!empty($nickname) && !empty($password)) {
     $connectionResult = User::canUserLogin($nickname, $password);
-    echo json_encode(array("success" => $connectionResult));
+    $user = new User($nickname);
+    $isAdmin =  boolval($user->getAdmin());
+    echo json_encode(array("success" => $connectionResult, "isAdmin" =>$isAdmin));
 }
 else{
     echo json_encode(array("success" => false));

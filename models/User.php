@@ -32,6 +32,10 @@ class User {
     return $this->idUser;
   }
 
+  public function getAdmin() {
+    return $this->admin;
+  }
+
   public function getUsersInformationsArray() {
     $userArray['nickname'] = $this->nickname;
     $userArray['password'] = $this->password;
