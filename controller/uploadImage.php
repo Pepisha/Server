@@ -4,7 +4,7 @@ require_once 'models/Photo.php';
 require_once 'models/Animal.php';
 
 $target_path = "./images/";
-$animal = new Animal($_POST['animalId']);
+$animal = new Animal($_POST['targetId']);
 
 $filepath = $_FILES['uploadedfile']['name'];
 $extension = pathinfo($filepath, PATHINFO_EXTENSION);
