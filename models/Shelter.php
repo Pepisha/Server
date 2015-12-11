@@ -115,6 +115,18 @@ class Shelter {
     return $listAnimals;
   }
 
+  public function getAdoptedAnimals() {
+    $db = DbManager::getPDO();
+    $query = "SELECT * FROM Animal WHERE idShelter = ".$this->idShelter." AND idState = ".Animal::$STATE_ADOPTED.";";
+    $res = $db->query($query)->fetchAll();
+    for ($i=0; $i<count($res); $i++) {
+      $animal = Animal::getAnimalArrayFromFetch($res[$i]);
+      $listAdoptedAnimals[$animal['idAnimal']] = $animal;
+    }
+
+    return $listAdoptedAnimals;
+  }
+
   public function isAdministrator($idUser) {
     $db = DbManager::getPDO();
     $query = "SELECT idShelter FROM IsAdmin WHERE idShelter=".$this->idShelter." AND idUser=".$idUser;
