@@ -51,7 +51,7 @@ Serveur de l'application Find Yours Pets.
   - forme réponse : {'success' => [true]/[false]}
 
 - [x] FollowShelter
-  - paramètres : page = followShelter, nickname, idAnimal
+  - paramètres : page = followShelter, nickname, idShelter
   - forme réponse : {'success' => [true]/[false], 'error' => 'messages erreur'}
 
 - [x] GiveOpinionAboutShelter
@@ -63,11 +63,11 @@ Serveur de l'application Find Yours Pets.
   - forme réponse : {'idOpinion1' => Opinion, 'idOpinion2' => Opinion, ...}
 
 - [x] GetHomelessAnimals
-  - paramètres : page = getHomelessAnimals
+  - paramètres : page = getHomelessAnimals, nickname
   - forme réponse : {'idAnimal1' => Animal, 'idAnimal2' => Animal, ...}
 
 - [x] GetAnimal
-  - paramètres : page = getAnimal, idAnimal
+  - paramètres : page = getAnimal, idAnimal, nickname
   - forme réponse : {'idAnimal' => Animal }
 
 - [x] AddAnimalInShelter
@@ -91,11 +91,11 @@ Serveur de l'application Find Yours Pets.
   - forme réponse : {'idShelter' => Shelter}
 
 - [x] GetSheltersAnimals
-  - paramètres : page = getSheltersAnimals, idShelter
+  - paramètres : page = getSheltersAnimals, idShelter, nickname
   - forme réponse : {'idAnimal1' => Animal, 'idAnimal2' => Animal, ...}
 
 - [x] GetSheltersAdoptedAnimals
-  - paramètres : page = getSheltersAdoptedAnimals, idShelter
+  - paramètres : page = getSheltersAdoptedAnimals, idShelter, nickname
   - forme réponse : {'idAnimal1' => Animal, 'idAnimal2' => Animal, ...}
 
 - [x] IsAdministrator

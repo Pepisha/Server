@@ -42,6 +42,7 @@ class Shelter {
     $shelterArray["email"] = $this->email;
     $shelterArray["website"] = $this->website;
     $shelterArray["operationalHours"] = $this->operationalHours;
+    $shelterArray["average"] = $this->getOpinionsAverage();
     return $shelterArray;
   }
 
@@ -98,6 +99,8 @@ class Shelter {
     for ($i=0; $i<count($res); $i++) {
       $shelter = Shelter::getShelterArrayFromFetch($res[$i]);
       $listShelters[$shelter['idShelter']] = $shelter;
+      $shelterObject = new Shelter($shelter['idShelter']);
+      $listShelters[$shelter['idShelter']]["average"] = $shelterObject->getOpinionsAverage();
     }
 
     return $listShelters;
@@ -181,6 +184,29 @@ class Shelter {
       $listOpinions[$opinion['idOpinion']] = $opinion;
     }
     return $listOpinions;
+  }
+
+  private function calculateAverage($listAverages) {
+    $totalNotes = 0;
+
+    for ($i=0; $i<count($listAverages); $i++) {
+      $totalNotes = $totalNotes + intval($listAverages[$i]['stars']);
+    }
+
+    if(count($listAverages) > 0) {
+      $average = $totalNotes/count($listAverages);
+    } else {
+      $average = 0;
+    }
+    return $average;
+  }
+
+  public function getOpinionsAverage() {
+    $db = DbManager::getPDO();
+    $query = "SELECT stars FROM Opinion WHERE idShelter = ".$this->idShelter.";";
+    $listAverages = $db->query($query)->fetchAll();
+
+    return $this->calculateAverage($listAverages);
   }
 }
 
