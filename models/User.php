@@ -273,7 +273,7 @@ class User {
 
   public function getFollowedAnimals() {
     $db = DbManager::getPDO();
-    $query = "SELECT * FROM Animal an, FollowAnimal fa WHERE an.idAnimal = fa.idAnimal AND fa.idUser = ".$this->idUser.";";
+    $query = "SELECT * FROM Animal an, FollowAnimal fa WHERE an.idAnimal = fa.idAnimal AND fa.idUser = ".$this->idUser;
     $res = $db->query($query)->fetchAll();
     for($i = 0; i < count($res); $i++) {
       $animal = Animal::getAnimalArrayFromFetch($res[$i]);
@@ -281,6 +281,21 @@ class User {
     }
 
     return $listFollowedAnimals;
+  }
+
+  public function setFollowedAnimals($animalsList) {
+    foreach ($animalsList as $idAnimal => $animal) {
+      $db = DbManager::getPDO();
+      $query = "SELECT * FROM FollowAnimal fa WHERE fa.idAnimal = ".$idAnimal." AND fa.idUser = ".$this->idUser;
+      $res = $db->query($query)->fetch();
+      if ($res) {
+        $animalsList[$idAnimal]['followed'] = true;
+      } else {
+        $animalsList[$idAnimal]['followed'] = false;
+      }
+    }
+
+    return $animalsList;
   }
 
   public function getFollowedShelters() {
