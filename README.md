@@ -10,6 +10,8 @@ Serveur de l'application Find Yours Pets.
 ## Protocole d'échange
 - url : http://domaine.com/index.php
 
+### User
+
 - [x] Login
   - paramètres :  page = login, nickname, password
   - forme réponse : {'success' => [true]/[false], 'isAdmin' => [true]/[false]}
@@ -54,6 +56,29 @@ Serveur de l'application Find Yours Pets.
   - paramètres : page = followShelter, nickname, idShelter
   - forme réponse : {'success' => [true]/[false], 'error' => 'messages erreur'}
 
+- [] IsFollowingShelter
+  - paramètres : page = isFollowingShelter, nickname, idShelter
+  - forme réponse : {'following' => [true]/[false]}
+
+- [] UnfollowShelter
+  - paramètres : page = unfollowShelter, nickname, idShelter
+  - forme réponse : {'success' => [true]/[false]}
+
+- [x] IsAdministrator
+  - paramètres : page = isAdministrator, nickname
+  - forme réponse : {'admin' => [true]/[false]}
+
+- [x] GetAnimalsFollowedByUser
+  - paramètres : page = getAnimalsFollowedByUser, nickname
+  - forme réponse : {'idAnimal1' => Animal, 'idAnimal2' => Animal, ...}
+
+- [x] GetSheltersFollowedByUser
+  - paramètres : page = getSheltersFollowedByUser, nickname
+  - forme réponse : {'idShelter1' => Shelter, 'idShelter2' => Shelter, ...}
+
+
+### Shelters
+
 - [x] GiveOpinionAboutShelter
   - paramètres : page = giveOpinionAboutShelter, idShelter, nickname, stars, description
   - forme réponse : {'success' => [true]/[false], 'error' => 'message erreur'}
@@ -61,22 +86,6 @@ Serveur de l'application Find Yours Pets.
 - [x] GetOpinionsAboutShelter
   - paramètres : page = getOpinionsAboutShelter, idShelter
   - forme réponse : {'idOpinion1' => Opinion, 'idOpinion2' => Opinion, ...}
-
-- [x] GetHomelessAnimals
-  - paramètres : page = getHomelessAnimals, nickname
-  - forme réponse : {'idAnimal1' => Animal, 'idAnimal2' => Animal, ...}
-
-- [x] GetAnimal
-  - paramètres : page = getAnimal, idAnimal, nickname
-  - forme réponse : {'idAnimal' => Animal }
-
-- [x] AddAnimalInShelter
-  - paramètres : page = addAnimalInShelter, idShelter, type, name, breed, age, gender, catsFriend, dogsFriend, childrenFriend, description
-  - forme réponse : {'success' => [true]/[false], 'error' => 'message erreur'}
-
-- [x] ChangeAnimalsStatus
-  - paramètres : page = changeAnimalsStatus, idAnimal, newStatus
-  - forme réponse : {'success' => [true]/[false]}
 
 - [x] GetAllShelters
   - paramètres : page = getAllShelters
@@ -98,9 +107,9 @@ Serveur de l'application Find Yours Pets.
   - paramètres : page = getSheltersAdoptedAnimals, idShelter, nickname
   - forme réponse : {'idAnimal1' => Animal, 'idAnimal2' => Animal, ...}
 
-- [x] IsAdministrator
-  - paramètres : page = isAdministrator, nickname
-  - forme réponse : {'admin' => [true]/[false]}
+- [x] AddAnimalInShelter
+  - paramètres : page = addAnimalInShelter, idShelter, type, name, breed, age, gender, catsFriend, dogsFriend, childrenFriend, description
+  - forme réponse : {'success' => [true]/[false], 'error' => 'message erreur'}
 
 - [x] IsShelterAdministrator
   - paramètres : page = isShelterAdministrator, idShelter, nickname
@@ -118,10 +127,24 @@ Serveur de l'application Find Yours Pets.
   - paramètres : page = AddShelterManager, idShelter, nickname
   - forme réponse : {'success' => [true]/[false]}
 
-- [x] GetAnimalsFollowedByUser
-  - paramètres : page = getAnimalsFollowedByUser, nickname
+
+### Animals
+
+- [x] GetHomelessAnimals
+  - paramètres : page = getHomelessAnimals, nickname
   - forme réponse : {'idAnimal1' => Animal, 'idAnimal2' => Animal, ...}
 
-- [x] GetSheltersFollowedByUser
-  - paramètres : page = getSheltersFollowedByUser, nickname
-  - forme réponse : {'idShelter1' => Shelter, 'idShelter2' => Shelter, ...}
+- [x] GetAnimal
+  - paramètres : page = getAnimal, idAnimal, nickname
+  - forme réponse : {'idAnimal' => Animal }
+
+- [x] ChangeAnimalsStatus
+  - paramètres : page = changeAnimalsStatus, idAnimal, newStatus
+  - forme réponse : {'success' => [true]/[false]}
+
+- [] GetNewsFromAnimal
+  - paramètres : page = getNewsFromAnimal, idAnimal
+  - forme réponse : {'idNew1' => New, 'idNew2' => New, ...}
+
+- [] AddAnimalsNews
+  - paramètres : page = addAnimalsNews, idAnimal, description
