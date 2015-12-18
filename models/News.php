@@ -19,7 +19,7 @@ class News {
 
   public static function getLastNewsFromAnimal($idAnimal) {
     $db = DbManager::getPDO();
-    $query = "SELECT idNews, description, idAnimal, MAX($dateNews) FROM News WHERE idAnimal = ".$idAnimal;
+    $query = "SELECT idNews, description, idAnimal, dateNews, MAX(dateNews) FROM News WHERE idAnimal = ".$idAnimal;
     $res = $db->query($query)->fetch();
 
     return News::getNewsArrayFromFetch($res);
@@ -37,19 +37,19 @@ class News {
   }
 
   private static function getNewsArrayFromFetch($news) {
-    $newsArray['idNews'] = intval($opinion['idNews']);
-    $newsArray['description'] = $opinion['description'];
-    $newsArray['idAnimal'] = $opinion['idAnimal'];
-    $newsArray['dateNews'] = $opinion['dateNews'];
+    $newsArray['idNews'] = intval($news['idNews']);
+    $newsArray['description'] = $news['description'];
+    $newsArray['idAnimal'] = $news['idAnimal'];
+    $newsArray['dateNews'] = $news['dateNews'];
     return $newsArray;
   }
 
   public static function getAnimalsNews($idAnimal) {
     $db = DbManager::getPDO();
-    $query = "SELECT * FROM News WHERE idAnimal = ".$idAnimal;
+    $query = "SELECT * FROM News WHERE idAnimal = ".$idAnimal.";";
     $res = $db->query($query)->fetchAll();
 
-    for($i = 0; $i < count($res), $i++) {
+    for($i = 0; $i < count($res); $i++) {
       $news = News::getNewsArrayFromFetch($res[$i]);
       $listNews[$news['idNews']] = $news;
     }
