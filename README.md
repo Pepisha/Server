@@ -152,4 +152,4 @@ Serveur de l'application Find Yours Pets.
 
 - [x] GetLastNewsFromAnimal
   - paramètres : page = getLastNewsFromAnimal, idAnimal
-  - forme réponse : {'idNews' => News}
+  - forme réponse : {'news' => News}

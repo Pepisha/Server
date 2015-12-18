@@ -4,4 +4,4 @@
 
   $lastNews = News::getLastNewsFromAnimal($_POST['idAnimal']);
 
-  echo json_encode([$lastNews['idNews'] => $lastNews]);
+  echo json_encode(['news' => $lastNews]);
