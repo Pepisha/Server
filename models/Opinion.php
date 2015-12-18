@@ -7,6 +7,7 @@ class Opinion {
     private $idOpinion;
     private $stars;
     private $description;
+    private $date;
     private $idUser;
     private $idShelter;
 
@@ -17,6 +18,7 @@ class Opinion {
       $this->idOpinion = $res['idOpinion'];
       $this->stars = $res['stars'];
       $this->description = $res['description'];
+      $this->date = $res['date'];
       $this->idUser = $res['idUser'];
       $this->idShelter = $res['idShelter'];
     }
@@ -31,8 +33,8 @@ class Opinion {
     public static function addOpinionInDataBase($stars, $description, $idUser, $idShelter) {
       if(Shelter::isShelterExistInDataBase($idShelter)) {
         $db = DbManager::getPDO();
-        $query = "INSERT INTO Opinion(stars, description, idUser, idShelter) "
-                ."VALUES (".$stars.", '".$description."',".$idUser.",".$idShelter.")";
+        $query = "INSERT INTO Opinion(stars, description, date, idUser, idShelter) "
+                ."VALUES (".$stars.", '".$description."',NOW(),".$idUser.",".$idShelter.")";
         return ($db->exec($query)>=0);
       } else {
           return "Unknown shelter";
@@ -43,6 +45,7 @@ class Opinion {
       $opinionArray["idOpinion"] = intval($opinion["idOpinion"]);
       $opinionArray["stars"] = intval($opinion['stars']);
       $opinionArray["description"] = $opinion['description'];
+      $opinionArray["date"] = $opinion['date'];
       $opinionArray["idUser"] = intval($opinion['idUser']);
       $opinionArray["idShelter"] = intval($res['idShelter']);
       return $opinionArray;
