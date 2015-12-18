@@ -11,6 +11,7 @@
     private $childrenFriend;
     private $description;
     private $state;
+    private $idShelter;
 
     public static $STATE_ADOPTED = 2;
     public static $STATE_ADOPTION = 1;
@@ -32,6 +33,8 @@
       $this->childrenFriend = $res['childrenFriend'];
       $this->description = $res['description'];
       $this->state = $res['idState'];
+      $this->idShelter = $res['idShelter'];
+
     }
 
     public function getName() {
@@ -84,6 +87,7 @@
       $animalArray["description"] = $animal["description"];
       $animalArray["idState"] = intval($animal["idState"]);
       $animalArray["photo"] = Animal::getPhoto($animal["idAnimal"]);
+      $animalArray["idShelter"] = intval($animal["idShelter"]);
       return $animalArray;
     }
 
@@ -116,6 +120,7 @@
       $animalArray["description"] = $this->description;
       $animalArray["idState"] = intval($this->idState);
       $animalArray["photo"] = getPhoto($this->idAnimal);
+      $animalArray["idShelter"] = intval($this->idShelter);
       return $animalArray;
     }
 
