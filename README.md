@@ -150,6 +150,6 @@ Serveur de l'application Find Yours Pets.
   - paramètres : page = addAnimalsNews, idAnimal, description
   - forme réponse : {'success' => [true]/[false], 'error' => 'message erreur'}
 
-- [ ] GetLastNewsFromAnimal
+- [x] GetLastNewsFromAnimal
   - paramètres : page = getLastNewsFromAnimal, idAnimal
   - forme réponse : {'idNews' => News}
