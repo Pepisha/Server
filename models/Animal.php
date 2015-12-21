@@ -139,6 +139,13 @@
     public function addPhoto($name, $description) {
       return Photo::addPhotoInDataBase($name, $description, $this->idAnimal, self::$SUBJECT_TYPE_ID);
     }
+
+    public static function getAnimalsOwner($idAnimal) {
+      $db = DbManager::getPDO();
+      $query = "SELECT nickname FROM Animal, User WHERE idOwner = idUser AND idAnimal = ".$idAnimal;
+      $res = $db->query($query)->fetch();
+      return $res['nickname'];
+    }
   }
 
  ?>

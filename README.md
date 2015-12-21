@@ -156,3 +156,7 @@ Serveur de l'application Find Yours Pets.
 - [x] GetLastNewsFromAnimal
   - paramètres : page = getLastNewsFromAnimal, idAnimal
   - forme réponse : {'news' => News}
+
+- [x] GetAnimalsOwner
+  - paramètres : page = getAnimalsOwner, idAnimal
+  - forme réponse : {'nickname' => ['nickname owner']/[false]}
