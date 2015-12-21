@@ -1,4 +1,5 @@
 <?php
+require_once 'models/Animal.php';
 
 class News {
   private $idNews;
