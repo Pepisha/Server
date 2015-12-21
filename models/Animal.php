@@ -91,12 +91,24 @@
       return $animalArray;
     }
 
+    private static function addFilter($query, $attr, $val) {
+      if (!is_null($val)) {
+        $query .= " AND " . $attr . " BETWEEN " . ($val-1) . " AND " . ($val+1);
+      }
+
+      return $query;
+    }
+
     /**
      * @return la liste des animaux à l'adoption
      */
-    public static function getHomelessAnimals() {
+    public static function getHomelessAnimals($catsFriend, $dogsFriend, $childrenFriend) {
       $db = DbManager::getPDO();
-      $query = "SELECT * FROM Animal WHERE idState='".self::$STATE_ADOPTION."';";
+      $query = "SELECT * FROM Animal WHERE idState=".self::$STATE_ADOPTION;
+      $query = Animal::addFilter($query, "catsFriend", $catsFriend);
+      $query = Animal::addFilter($query, "dogsFriend", $dogsFriend);
+      $query = Animal::addFilter($query, "childrenFriend", $childrenFriend);
+
       $res = $db->query($query)->fetchAll();
 
       for ($i=0; $i<count($res); $i++) {

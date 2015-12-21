@@ -131,7 +131,7 @@ Serveur de l'application Find Yours Pets.
 ### Animals
 
 - [x] GetHomelessAnimals
-  - paramètres : page = getHomelessAnimals, nickname
+  - paramètres : page = getHomelessAnimals, nickname, [catsFriend], [dogsFriend], [childrenFriend]
   - forme réponse : {'idAnimal1' => Animal, 'idAnimal2' => Animal, ...}
 
 - [x] GetAnimal
