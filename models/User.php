@@ -313,4 +313,10 @@ class User {
   public function isAdmin() {
     return boolval($this->admin);
   }
+
+  public function isUserAnimalsOwner($idAnimal) {
+    $db = DbManager::getPDO();
+    $query = "SELECT idAnimal FROM Adopt WHERE idUser = ".$this->idUser." AND idAnimal = ".$idAnimal;
+    return ($db->exec($query)>=0);
+  }
 }
