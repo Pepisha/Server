@@ -54,6 +54,6 @@ class News {
       $listNews[$news['idNews']] = $news;
     }
 
-    return $news;
+    return $listNews;
   }
 }
