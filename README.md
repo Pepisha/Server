@@ -76,9 +76,18 @@ Serveur de l'application Find Yours Pets.
   - paramètres : page = getSheltersFollowedByUser, nickname
   - forme réponse : {'idShelter1' => Shelter, 'idShelter2' => Shelter, ...}
 
-  - [x] IsUserAnimalsOwner
-    - paramètres : page = isUserAnimalsOwner, idAnimal, nickname
-    - forme réponse : {'owner' => [true] / [false]}
+- [x] IsUserAnimalsOwner
+  - paramètres : page = isUserAnimalsOwner, idAnimal, nickname
+  - forme réponse : {'owner' => [true] / [false]}
+
+- [x] GetUserPetsPreferences
+  - paramètres : page = getUserPetsPreferences, nickname
+  - forme réponse : {'catsFriend' => catsFriend, 'dogsFriend' => dogsFriend, 'childrenFriend' => childrenFriend}
+
+- [x] SetUserPetsPreferences
+  - paramètres : page = setUserPetsPreferences, nickname, catsFriend, dogsFriend, childrenFriend
+  - forme réponse : {'success' => [true]/[false]}
+
 
 ### Shelters
 
