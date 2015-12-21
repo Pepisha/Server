@@ -319,4 +319,45 @@ class User {
     $query = "SELECT idAnimal FROM Animal WHERE idOwner = ".$this->idUser." AND idAnimal = ".$idAnimal;
     return ($db->exec($query)>=0);
   }
+
+  public function getPetsPreferences() {
+    $db = DbManager::getPDO();
+    $query = "SELECT * FROM UserPreferences WHERE idUser = " . $this->idUser;
+    $res = $db->query($query)->fetch();
+
+    $preferences = array();
+    if (!is_null($res['catsFriend'])) {
+      $preferences['catsFriend'] = $res['catsFriend'];
+    }
+
+    if (!is_null($res['dogsFriend'])) {
+      $preferences['dogsFriend'] = $res['dogsFriend'];
+    }
+
+    if (!is_null($res['childrenFriend'])) {
+      $preferences['childrenFriend'] = $res['childrenFriend'];
+    }
+
+    return $preferences;
+  }
+
+  public function setPetsPreferences($catsFriend, $dogsFriend, $childrenFriend) {
+    $db = DbManager::getPDO();
+    $query = "SELECT idUser FROM UserPreferences WHERE idUser = " . $this->idUser;
+    $res = $db->query($query);
+
+    $catsFriend = !(is_null($catsFriend)) ? $catsFriend : "NULL";
+    $dogsFriend = !(is_null($dogsFriend)) ? $dogsFriend : "NULL";
+    $childrenFriend = !(is_null($childrenFriend)) ? $childrenFriend : "NULL";
+
+    if ($res->fetch()) {
+      $query = "UPDATE UserPreferences SET catsFriend = ".$catsFriend.", dogsFriend = ".$dogsFriend.", childrenFriend = ".$childrenFriend
+               . " WHERE idUser = " . $this->idUser;
+    } else {
+      $query = "INSERT INTO UserPreferences (idUser, catsFriend, dogsFriend, childrenFriend)"
+                . "VALUES (".$this->idUser.",".$catsFriend.",".$dogsFriend.",".$childrenFriend.")";
+    }
+
+    return ($db->exec($query) >= 0);
+  }
 }
