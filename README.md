@@ -182,10 +182,10 @@ Serveur de l'application Find Yours Pets.
   - paramètres : sendMessageAboutAnimal, idAnimal, nickname, content
   - forme réponse : {'success' => [true]/[false], 'error' => 'message erreur'}
 
-- [ ] UserIsInterestedOnAnimal
-  - paramètres : userIsInterestedOnAnimal, idUser, idAnimal
+- [x] UserIsInterestedOnAnimal
+  - paramètres : userIsInterestedOnAnimal, nickname, idAnimal
   - forme réponse : {'success' => [true]/[false], 'error' => 'message erreur'}
 
-- [ ] UserIsNotInterestedOnAnimal
-  - paramètres : userIsNotInterestedOnAnimal, idUser, idAnimal
+- [x] UserIsNotInterestedOnAnimal
+  - paramètres : userIsNotInterestedOnAnimal, nickname, idAnimal
   - forme réponse : {'success' => [true]/[false], 'error' => 'message erreur'}

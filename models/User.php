@@ -365,4 +365,20 @@ class User {
   public function sendMessageToShelter($content, $idShelter) {
     return Message::addMessageInDataBase($content, $this->idUser, $idShelter);
   }
+
+  public function setInterestedOnAnimal($idAnimal) {
+    if (!Animal::isAnimalExistInDataBase($idAnimal)) {
+      return "Unknown animal";
+    }
+
+    $db = DbManager::getPDO();
+    $query = "INSERT INTO IsInterestedBy (idUser, idAnimal) VALUES (".$this->idUser.",".$idAnimal.")";
+    return $db->exec($query) > 0;
+  }
+
+  public function setNotInterestedOnAnimal($idAnimal) {
+    $db = DbManager::getPDO();
+    $query = "DELETE FROM IsInterestedBy WHERE idUser = ".$this->idUser." AND idAnimal = " . $idAnimal;
+    return $db->exec($query) > 0;
+  }
 }
