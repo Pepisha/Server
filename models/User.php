@@ -2,6 +2,7 @@
 
 require_once 'models/Animal.php';
 require_once 'models/Shelter.php';
+require_once 'models/Message.php';
 
 class User {
 
@@ -359,5 +360,9 @@ class User {
     }
 
     return ($db->exec($query) >= 0);
+  }
+
+  public function sendMessageToShelter($content, $idShelter) {
+    return Message::addMessageInDataBase($content, $this->idUser, $idShelter);
   }
 }

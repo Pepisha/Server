@@ -40,7 +40,7 @@ class News {
   private static function getNewsArrayFromFetch($news) {
     $newsArray['idNews'] = intval($news['idNews']);
     $newsArray['description'] = $news['description'];
-    $newsArray['idAnimal'] = $news['idAnimal'];
+    $newsArray['idAnimal'] = intval($news['idAnimal']);
     $newsArray['dateNews'] = $news['dateNews'];
     return $newsArray;
   }
