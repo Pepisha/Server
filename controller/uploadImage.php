@@ -10,7 +10,8 @@ $filepath = $_FILES['uploadedfile']['name'];
 $extension = pathinfo($filepath, PATHINFO_EXTENSION);
 
 $generatedFilename = uniqid($animal->getName() . "_");
-$filepath = $generatedFilename . "." . $extension;
+$filename = str_replace(' ', '-', $generatedFilename);
+$filepath = $filename . "." . $extension;
 $target_path = $target_path . $filepath;
 
 $result = move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $target_path);
