@@ -34,11 +34,14 @@
       $this->description = $res['description'];
       $this->state = $res['idState'];
       $this->idShelter = $res['idShelter'];
-
     }
 
     public function getName() {
       return $this->name;
+    }
+
+    public function getShelter() {
+      return $this->idShelter;
     }
 
     /**
