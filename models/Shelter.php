@@ -189,15 +189,26 @@ class Shelter {
     }
   }
 
-  public function getOpinions() {
+  public function getOpinions($numberOfOpinions = null) {
     $db = DbManager::getPDO();
     $query = "SELECT * FROM Opinion WHERE idShelter = ".$this->idShelter.";";
     $res = $db->query($query)->fetchAll();
 
-    for ($i=0; $i<count($res); $i++) {
-      $opinion = Opinion::getOpinionArrayFromFetch($res[$i]);
-      $listOpinions[$opinion['idOpinion']] = $opinion;
+    if($numberOfOpinions !== null && $numberOfOpinions > 0) {
+      for($i = 0; $i < $numberOfOpinions; $i++) {
+        $indexOpinion = rand(0, count($res)-1);
+        $opinion = Opinion::getOpinionArrayFromFetch($res[$i]);
+        $listOpinions[$opinion['idOpinion']] = $opinion;
+        array_splice($res, $indexOpinion, 1);
+      }
+    } else {
+      for ($i=0; $i<count($res); $i++) {
+        $opinion = Opinion::getOpinionArrayFromFetch($res[$i]);
+        $listOpinions[$opinion['idOpinion']] = $opinion;
+      }
     }
+
+
     return $listOpinions;
   }
 
