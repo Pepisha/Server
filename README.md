@@ -109,7 +109,7 @@ Serveur de l'application Find Yours Pets.
 
 - [x] GetShelter
   - paramètres : page = getShelter, idShelter
-  - forme réponse : {'idShelter' => Shelter}
+  - forme réponse : {'success' => [true] / [false], 'shelter' => Shelter}
 
 - [x] GetSheltersAnimals
   - paramètres : page = getSheltersAnimals, idShelter, nickname, [numberOfAnimals]

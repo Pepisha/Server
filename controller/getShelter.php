@@ -7,6 +7,6 @@ $result = $shelter->getInformations();
 if(gettype($result)==="string") {
   $resultToSend = ['success' => false, 'error' => $result];
 } else {
-  $resultToSend = ['success' => true, $result['idShelter'] => $result];
+  $resultToSend = ['success' => true, "shelter" => $result];
 }
 echo json_encode($resultToSend);
