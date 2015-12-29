@@ -106,13 +106,28 @@ class Shelter {
     return $listShelters;
   }
 
-  public function getAnimals() {
+  /**
+   * @param numberOfAnimals nombre d'animaux attendus.
+   * @return Si numberOfAnimals === null, on retourne la liste de tous les animaux.
+  *          Sinon, on prend numberOfAnimals animaux aléatoirement dans la liste des animaux du refuge
+   */
+  public function getAnimals($numberOfAnimals = null) {
     $db = DbManager::getPDO();
     $query = "SELECT * FROM Animal WHERE idShelter = ".$this->idShelter." AND idState = ".Animal::$STATE_ADOPTION.";";
     $res = $db->query($query)->fetchAll();
-    for ($i=0; $i<count($res); $i++) {
-      $animal = Animal::getAnimalArrayFromFetch($res[$i]);
-      $listAnimals[$animal['idAnimal']] = $animal;
+
+    if($numberOfAnimals !== null && $numberOfAnimals > 0) {
+      for($i = 0; $i < $numberOfAnimals; $i++) {
+        $indexAnimal = rand(0, count($res)-1);
+        $animal = Animal::getAnimalArrayFromFetch($res[$i]);
+        $listAnimals[$animal['idAnimal']] = $animal;
+        array_splice($res, $indexAnimal, 1);
+      }
+    } else {
+      for ($i=0; $i<count($res); $i++) {
+        $animal = Animal::getAnimalArrayFromFetch($res[$i]);
+        $listAnimals[$animal['idAnimal']] = $animal;
+      }
     }
 
     return $listAnimals;
@@ -208,6 +223,8 @@ class Shelter {
 
     return $this->calculateAverage($listAverages);
   }
+
+
 }
 
 
