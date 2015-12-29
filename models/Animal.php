@@ -84,9 +84,9 @@
       $animalArray["breed"] = $animal["breed"];
       $animalArray["age"] = $animal["age"];
       $animalArray["gender"] = $animal["gender"];
-      $animalArray["catsFriend"] = intval($animal["catsFriend"]);
-      $animalArray["dogsFriend"] = intval($animal["dogsFriend"]);
-      $animalArray["childrenFriend"] = intval($animal["childrenFriend"]);
+      $animalArray["catsFriend"] = floatval($animal["catsFriend"]);
+      $animalArray["dogsFriend"] = floatval($animal["dogsFriend"]);
+      $animalArray["childrenFriend"] = floatval($animal["childrenFriend"]);
       $animalArray["description"] = $animal["description"];
       $animalArray["idState"] = intval($animal["idState"]);
       $animalArray["photo"] = Animal::getPhoto($animal["idAnimal"]);
@@ -129,9 +129,9 @@
       $animalArray["breed"] = $this->breed;
       $animalArray["age"] = $this->age;
       $animalArray["gender"] = $this->gender;
-      $animalArray["catsFriend"] = intval($this->catsFriend);
-      $animalArray["dogsFriend"] = intval($this->dogsFriend);
-      $animalArray["childrenFriend"] = intval($this->childrenFriend);
+      $animalArray["catsFriend"] = floatval($this->catsFriend);
+      $animalArray["dogsFriend"] = floatval($this->dogsFriend);
+      $animalArray["childrenFriend"] = floatval($this->childrenFriend);
       $animalArray["description"] = $this->description;
       $animalArray["idState"] = intval($this->idState);
       $animalArray["photo"] = getPhoto($this->idAnimal);
