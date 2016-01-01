@@ -62,7 +62,16 @@
     public function updateStatus($newStatus) {
       $db = DbManager::getPDO();
       $query = "UPDATE Animal SET idState = ".$newStatus." WHERE idAnimal = ".$this->idAnimal.";";
-      return ($db->exec($query)>=0);
+      if ($db->exec($query) >= 0) {
+        if ($newStatus == self::$STATE_ADOPTION) {
+          $query = "UPDATE Animal SET idOwner = NULL WHERE idAnimal = ".$this->idAnimal.";";
+          return ($db->exec($query) >= 0);
+        }
+
+        return true;
+      }
+
+      return false;
     }
 
     public static function getPhoto($idAnimal) {
