@@ -3,7 +3,7 @@
 require_once 'models/Animal.php';
 
 $animal = new Animal($_POST['idAnimal']);
-$updateStatus = $animal->updateStatus($_POST['newStatus']);
+$updateStatus = $animal->updateStatus($_POST['newStatus'],$_POST['nickname']);
 if(gettype($updateStatus)==="string") {
   $result = ['success' => false, 'error' => $updateStatus];
 } else {

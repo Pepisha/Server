@@ -1,4 +1,6 @@
 <?php
+require_once 'models/User.php';
+
   class Animal {
     private $idAnimal;
     private $type;
@@ -59,18 +61,19 @@
      * @return true/false suivant le resultat de la requete,
      *        "Unknown animal" si l'animal n'est pas présent dans la BDD
      */
-    public function updateStatus($newStatus) {
-      $db = DbManager::getPDO();
-      $query = "UPDATE Animal SET idState = ".$newStatus." WHERE idAnimal = ".$this->idAnimal.";";
-      if ($db->exec($query) >= 0) {
-        if ($newStatus == self::$STATE_ADOPTION) {
-          $query = "UPDATE Animal SET idOwner = NULL WHERE idAnimal = ".$this->idAnimal.";";
-          return ($db->exec($query) >= 0);
-        }
+    public function updateStatus($newStatus, $nickname) {
+      if(User::isUserExistInDataBase($nickname)) {
 
-        return true;
+        $user = new User($nickname);
+        $query = "UPDATE Animal SET idState = ".$newStatus.", idOwner = ".$user->getId()."  WHERE idAnimal = ".$this->idAnimal.";";
+      } else {
+        $query = "UPDATE Animal SET idState = ".$newStatus.", idOwner = NULL WHERE idAnimal = ".$this->idAnimal.";";
       }
 
+      $db = DbManager::getPDO();
+     if ($db->exec($query) >= 0) {
+        return true;
+      }
       return false;
     }
 

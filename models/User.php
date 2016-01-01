@@ -54,7 +54,8 @@ class User {
   public static function isUserExistInDataBase($nickname) {
       $db = DbManager::getPDO();
       $query = "SELECT nickname FROM User WHERE nickname='".$nickname."';";
-      return ($db->exec($query)>=0);
+      $result = $db->query($query)->fetch();
+      return ($result['nickname'] === $nickname);
   }
 
   /**

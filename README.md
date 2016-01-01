@@ -152,7 +152,7 @@ Serveur de l'application Find Yours Pets.
   - forme réponse : {'idAnimal' => Animal }
 
 - [x] ChangeAnimalsStatus
-  - paramètres : page = changeAnimalsStatus, idAnimal, newStatus
+  - paramètres : page = changeAnimalsStatus, idAnimal, newStatus, nickname
   - forme réponse : {'success' => [true]/[false]}
 
 - [x] GetNewsFromAnimal
