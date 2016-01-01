@@ -8,7 +8,14 @@ $result = Opinion::addOpinionInDataBase($_POST['stars'], $_POST['description'], 
 if(gettype($result) === "string") {
   $response = ['success' => false, 'error' => $result];
 } else {
-  $response = ['success' => $result];
+  $shelter = new Shelter($_POST['idShelter']);
+  $result = $shelter->getInformations();
+
+  if(gettype($result)==="string") {
+    $response = ['success' => false, 'error' => $result];
+  } else {
+    $response = ['success' => true, "shelter" => $result];
+  }
 }
 
 echo json_encode($response);

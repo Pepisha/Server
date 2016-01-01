@@ -93,7 +93,7 @@ Serveur de l'application Find Yours Pets.
 
 - [x] GiveOpinionAboutShelter
   - paramètres : page = giveOpinionAboutShelter, idShelter, nickname, stars, description
-  - forme réponse : {'success' => [true]/[false], 'error' => 'message erreur'}
+  - forme réponse : {'success' => [true]/[false], 'error' => 'message erreur', 'shelter' => Shelter}
 
 - [x] GetOpinionsAboutShelter
   - paramètres : page = getOpinionsAboutShelter, idShelter, numberOfOpinions
