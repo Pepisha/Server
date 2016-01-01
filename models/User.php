@@ -238,7 +238,7 @@ class User {
 
   public function getAnimals() {
     $db = DbManager::getPDO();
-    $query = "SELECT * FROM Animal an, Adopt ad WHERE an.idAnimal=ad.idAnimal AND ad.idUser=".$this->idUser;
+    $query = "SELECT * FROM Animal WHERE idOwner=".$this->idUser;
     $res = $db->query($query)->fetchAll();
     for($i = 0; $i < count($res); $i++) {
         $animal = Animal::getAnimalArrayFromFetch($res[$i]);
