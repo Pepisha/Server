@@ -117,11 +117,14 @@ class Shelter {
     $res = $db->query($query)->fetchAll();
 
     if($numberOfAnimals !== null && $numberOfAnimals > 0) {
-      for($i = 0; $i < $numberOfAnimals; $i++) {
+      $i = 0;
+      while ($i < count($res) && $i < $numberOfAnimals) {
         $indexAnimal = rand(0, count($res)-1);
         $animal = Animal::getAnimalArrayFromFetch($res[$i]);
         $listAnimals[$animal['idAnimal']] = $animal;
         array_splice($res, $indexAnimal, 1);
+
+        $i++;
       }
     } else {
       for ($i=0; $i<count($res); $i++) {
@@ -195,11 +198,14 @@ class Shelter {
     $res = $db->query($query)->fetchAll();
 
     if($numberOfOpinions !== null && $numberOfOpinions > 0) {
-      for($i = 0; $i < $numberOfOpinions; $i++) {
+      $i = 0;
+      while ($i < count($res) && $i < $numberOfOpinions) {
         $indexOpinion = rand(0, count($res)-1);
         $opinion = Opinion::getOpinionArrayFromFetch($res[$i]);
         $listOpinions[$opinion['idOpinion']] = $opinion;
         array_splice($res, $indexOpinion, 1);
+
+        $i++;
       }
     } else {
       for ($i=0; $i<count($res); $i++) {
@@ -207,7 +213,6 @@ class Shelter {
         $listOpinions[$opinion['idOpinion']] = $opinion;
       }
     }
-
 
     return $listOpinions;
   }
