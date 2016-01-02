@@ -12,9 +12,6 @@ class Shelter {
   private $mail;
   private $website;
   private $operationalHours;
-  private $idFacebook;
-  private $idTwitter;
-  private $idInstagram;
 
   public function __construct($idShelter) {
     $db = DbManager::getPDO();
@@ -28,9 +25,6 @@ class Shelter {
     $this->mail = $res['mail'];
     $this->website = $res["website"];
     $this->operationalHours = $res['operationalHours'];
-    $this->idFacebook = $res['idFacebook'];
-    $this->idTwitter = $res['idTwitter'];
-    $this->idInstagram = $res['idInstagram'];
   }
 
   public function getInformations() {
@@ -42,9 +36,6 @@ class Shelter {
     $shelterArray["mail"] = $this->mail;
     $shelterArray["website"] = $this->website;
     $shelterArray["operationalHours"] = $this->operationalHours;
-    $shelterArray['idFacebook'] = intval($this->idFacebook);
-    $shelterArray['idTwitter'] = intval($this->idTwitter);
-    $shelterArray['idInstagram'] = intval($this->idInstagram);
     $shelterArray["average"] = $this->getOpinionsAverage();
     return $shelterArray;
   }
@@ -105,9 +96,6 @@ class Shelter {
     $arrayShelter["mail"] = $shelter["mail"];
     $arrayShelter["website"] = $shelter["website"];
     $arrayShelter["operationalHours"] = $shelter["operationalHours"];
-    $arrayShelter["idFacebook"] = intval($shelter["idFacebook"]);
-    $arrayShelter["idTwitter"] = intval($shelter["idTwitter"]);
-    $arrayShelter["idInstagram"] = intval($shelter["idInstagram"]);
     return $arrayShelter;
   }
 
