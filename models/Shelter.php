@@ -2,6 +2,7 @@
 require_once 'models/Address.php';
 require_once 'models/Animal.php';
 require_once 'models/User.php';
+require_once 'tools/arrayOperation.php'
 
 class Shelter {
   private $idShelter;
@@ -125,23 +126,21 @@ class Shelter {
     $res = $db->query($query)->fetchAll();
 
     if($numberOfAnimals !== null && $numberOfAnimals > 0) {
-      $i = 0;
-      while ($i < count($res) && $i < $numberOfAnimals) {
-        $indexAnimal = rand(0, count($res)-1);
-        $animal = Animal::getAnimalArrayFromFetch($res[$i]);
-        $listAnimals[$animal['idAnimal']] = $animal;
-        array_splice($res, $indexAnimal, 1);
 
-        $i++;
+      $listAnimals = getRandomNbElements($res, $numberOfAnimals);
+
+      for ($i = 0; $i < count($listAnimals); $i++) {
+        $animal = Animal::getAnimalArrayFromFetch($listAnimals[$i]);
+        $listToReturn[$animal['idAnimal']] = $animal;
       }
     } else {
       for ($i=0; $i<count($res); $i++) {
         $animal = Animal::getAnimalArrayFromFetch($res[$i]);
-        $listAnimals[$animal['idAnimal']] = $animal;
+        $listToReturn[$animal['idAnimal']] = $animal;
       }
     }
 
-    return $listAnimals;
+    return $listToReturn;
   }
 
   public function getAdoptedAnimals() {

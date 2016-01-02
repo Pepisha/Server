@@ -280,6 +280,7 @@ class User {
     for($i = 0; i < count($res); $i++) {
       $animal = Animal::getAnimalArrayFromFetch($res[$i]);
       $listFollowedAnimals[$animal['idAnimal']] = $animal;
+      $listFollowedAnimals[$animal['idAnimal']]['followed'] = true;
     }
 
     return $listFollowedAnimals;
