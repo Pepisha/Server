@@ -340,10 +340,14 @@ class User {
       $preferences['childrenFriend'] = $res['childrenFriend'];
     }
 
+    if (!is_null($res['idType'])) {
+      $preferences['idType'] = $res['idType'];
+    }
+
     return $preferences;
   }
 
-  public function setPetsPreferences($catsFriend, $dogsFriend, $childrenFriend) {
+  public function setPetsPreferences($catsFriend, $dogsFriend, $childrenFriend, $idType) {
     $db = DbManager::getPDO();
     $query = "SELECT idUser FROM UserPreferences WHERE idUser = " . $this->idUser;
     $res = $db->query($query);
@@ -351,13 +355,15 @@ class User {
     $catsFriend = !(is_null($catsFriend)) ? $catsFriend : "NULL";
     $dogsFriend = !(is_null($dogsFriend)) ? $dogsFriend : "NULL";
     $childrenFriend = !(is_null($childrenFriend)) ? $childrenFriend : "NULL";
+    $idType = !(is_null($idType)) ? $idType : "NULL";
 
     if ($res->fetch()) {
       $query = "UPDATE UserPreferences SET catsFriend = ".$catsFriend.", dogsFriend = ".$dogsFriend.", childrenFriend = ".$childrenFriend
+                                              .", idType = ".$idType
                . " WHERE idUser = " . $this->idUser;
     } else {
-      $query = "INSERT INTO UserPreferences (idUser, catsFriend, dogsFriend, childrenFriend)"
-                . "VALUES (".$this->idUser.",".$catsFriend.",".$dogsFriend.",".$childrenFriend.")";
+      $query = "INSERT INTO UserPreferences (idUser, catsFriend, dogsFriend, childrenFriend, idType) "
+                . "VALUES (".$this->idUser.",".$catsFriend.",".$dogsFriend.",".$childrenFriend.",".$idType.")";
     }
 
     return ($db->exec($query) >= 0);
