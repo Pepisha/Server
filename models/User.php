@@ -287,6 +287,7 @@ class User {
     for($i = 0; $i < count($res); $i++) {
       $animal = Animal::getAnimalArrayFromFetch($res[$i]);
       $listFollowedAnimals[$animal['idAnimal']] = $animal;
+      $listFollowedAnimals[$animal['idAnimal']]['followed'] = true;
     }
 
     return $listFollowedAnimals;
@@ -314,7 +315,7 @@ class User {
     for($i = 0; i < count($res); $i++) {
       $shelter = Shelter::getShelterArrayFromFetch($res[$i]);
       $listFollowedShelters[$shelter['idShelter']] = $animal;
-      $listFollowedAnimals[$animal['idAnimal']]['followed'] = true;
+      $listFollowedShelters[$shelter['idShelter']]['followed'] = true;
     }
 
     return $listFollowedShelters;
