@@ -75,6 +75,23 @@ class Shelter {
     return $db->exec($query);
   }
 
+  public function isAnimalInShelter($idAnimal) {
+    $db = DbManager::getPDO();
+    $query = "SELECT idAnimal FROM Animal WHERE idAnimal = ".$idAnimal." AND idShelter = ".$this->idShelter.";";
+    $res = $db->query($query)->fetch();
+    return $res['idAnimal'] === $idAnimal;
+  }
+
+  public function deleteAnimal($idAnimal) {
+    if($this->isAnimalInShelter($idAnimal)) {
+        $db = DbManager::getPDO();
+        $query = "UPDATE Animal SET idShelter = null WHERE idAnimal = ".$idAnimal.";";
+        return $db->exec($query) >= 0;
+    } else {
+      return "animal not in shelter";
+    }
+  }
+
   /**
    * @return transforme le résultat du fetch d'un refuge en un tableau contenant
    *         les informations du refuge pour ensuite le transmettre au clien

@@ -123,6 +123,10 @@ Serveur de l'application Find Yours Pets.
   - paramètres : page = addAnimalInShelter, idShelter, type, name, breed, age, gender, catsFriend, dogsFriend, childrenFriend, description
   - forme réponse : {'success' => [true]/[false], 'error' => 'message erreur'}
 
+- [x] DeleteAnimalFromShelter
+  - paramètres : page = deleteAnimalFromShelter, idShelter, idAnimal, nickname
+  - forme réponse : {'success' => [true]/[false], 'error' => 'message erreur'}
+
 - [x] IsShelterAdministrator
   - paramètres : page = isShelterAdministrator, idShelter, nickname
   - forme réponse : {'admin' => [true]/[false]}
