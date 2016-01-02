@@ -106,7 +106,7 @@ require_once 'models/User.php';
       return $animalArray;
     }
 
-    private static function addFilter($query, $attr, $val) {
+    private static function addAgreementsFilter($query, $attr, $val) {
       if (!is_null($val)) {
         $query .= " AND " . $attr . " BETWEEN " . ($val-1) . " AND " . ($val+1);
       }
@@ -117,14 +117,21 @@ require_once 'models/User.php';
     /**
      * @return la liste des animaux à l'adoption
      */
-    public static function getHomelessAnimals($catsFriend, $dogsFriend, $childrenFriend) {
+    public static function getHomelessAnimals($idType, $catsFriend, $dogsFriend, $childrenFriend) {
       $db = DbManager::getPDO();
       $query = "SELECT * FROM Animal WHERE idState=".self::$STATE_ADOPTION;
-      $query = Animal::addFilter($query, "catsFriend", $catsFriend);
-      $query = Animal::addFilter($query, "dogsFriend", $dogsFriend);
-      $query = Animal::addFilter($query, "childrenFriend", $childrenFriend);
+
+      if (!is_null($idType)) {
+        $query .= " AND idType = " . $idType;
+      }
+
+      $query = Animal::addAgreementsFilter($query, "catsFriend", $catsFriend);
+      $query = Animal::addAgreementsFilter($query, "dogsFriend", $dogsFriend);
+      $query = Animal::addAgreementsFilter($query, "childrenFriend", $childrenFriend);
 
       $res = $db->query($query)->fetchAll();
+
+      $listAnimals = array();
 
       for ($i=0; $i<count($res); $i++) {
         $animal = Animal::getAnimalArrayFromFetch($res[$i]);
