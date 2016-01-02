@@ -220,6 +220,13 @@ class User {
     return $db->query($query) > 0;
   }
 
+  public function isFollowingShelter($idShelter) {
+    $db = DbManager::getPDO();
+    $query = "SELECT idUser FROM FollowShelter WHERE idUser=".$this->idUser." AND idShelter=".$idShelter;
+    $result = $db->query($query)->fetch();
+    return $result['idUser'] === $this->idUser;
+  }
+
   public function followShelter($idShelter) {
     if(Shelter::isShelterExistInDataBase($idShelter)) {
       $db = DbManager::getPDO();
@@ -280,7 +287,6 @@ class User {
     for($i = 0; i < count($res); $i++) {
       $animal = Animal::getAnimalArrayFromFetch($res[$i]);
       $listFollowedAnimals[$animal['idAnimal']] = $animal;
-      $listFollowedAnimals[$animal['idAnimal']]['followed'] = true;
     }
 
     return $listFollowedAnimals;
@@ -289,7 +295,7 @@ class User {
   public function setFollowedAnimals($animalsList) {
     foreach ($animalsList as $idAnimal => $animal) {
       $db = DbManager::getPDO();
-      $query = "SELECT * FROM FollowAnimal fa WHERE fa.idAnimal = ".$idAnimal." AND fa.idUser = ".$this->idUser;
+      $query = "SELECT * FROM FollowAnimal WHERE idAnimal = ".$idAnimal." AND idUser = ".$this->idUser;
       $res = $db->query($query)->fetch();
       if ($res) {
         $animalsList[$idAnimal]['followed'] = true;
@@ -308,9 +314,25 @@ class User {
     for($i = 0; i < count($res); $i++) {
       $shelter = Shelter::getShelterArrayFromFetch($res[$i]);
       $listFollowedShelters[$shelter['idShelter']] = $animal;
+      $listFollowedAnimals[$animal['idAnimal']]['followed'] = true;
     }
 
     return $listFollowedShelters;
+  }
+
+  public function setFollowedShelters($sheltersList) {
+    foreach ($sheltersList as $idShelter => $shelter) {
+      $db = DbManager::getPDO();
+      $query = "SELECT * FROM FollowShelter WHERE idShelter = ".$idShelter." AND idUser = ".$this->idUser;
+      $res = $db->query($query)->fetch();
+      if ($res) {
+        $sheltersList[$idShelter]['followed'] = true;
+      } else {
+        $sheltersList[$idShelter]['followed'] = false;
+      }
+    }
+
+    return $sheltersList;
   }
 
   public function isAdmin() {
