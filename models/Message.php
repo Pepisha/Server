@@ -37,4 +37,13 @@ class Message {
         return ($db->exec($query) >= 0);
       }
     }
+
+    public static function getMessageArrayFromFetch($message) {
+      $messageArray["idMessage"] = intval($message["idMessage"]);
+      $messageArray["content"] = $message['content'];
+      $messageArray["dateMessage"] = $message['dateMessage'];
+      $messageArray["idUser"] = intval($message['idUser']);
+      $messageArray["idShelter"] = intval($message['idShelter']);
+      return $messageArray;
+    }
 }
