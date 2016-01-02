@@ -284,7 +284,7 @@ class User {
     $db = DbManager::getPDO();
     $query = "SELECT * FROM Animal an, FollowAnimal fa WHERE an.idAnimal = fa.idAnimal AND fa.idUser = ".$this->idUser;
     $res = $db->query($query)->fetchAll();
-    for($i = 0; i < count($res); $i++) {
+    for($i = 0; $i < count($res); $i++) {
       $animal = Animal::getAnimalArrayFromFetch($res[$i]);
       $listFollowedAnimals[$animal['idAnimal']] = $animal;
     }
