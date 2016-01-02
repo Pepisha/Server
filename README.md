@@ -82,10 +82,10 @@ Serveur de l'application Find Yours Pets.
 
 - [x] GetUserPetsPreferences
   - paramètres : page = getUserPetsPreferences, nickname
-  - forme réponse : {'catsFriend' => catsFriend, 'dogsFriend' => dogsFriend, 'childrenFriend' => childrenFriend}
+  - forme réponse : {'catsFriend' => catsFriend, 'dogsFriend' => dogsFriend, 'childrenFriend' => childrenFriend, 'idType' => idType}
 
 - [x] SetUserPetsPreferences
-  - paramètres : page = setUserPetsPreferences, nickname, catsFriend, dogsFriend, childrenFriend
+  - paramètres : page = setUserPetsPreferences, nickname, catsFriend, dogsFriend, childrenFriend, idType
   - forme réponse : {'success' => [true]/[false]}
 
 
