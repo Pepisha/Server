@@ -2,7 +2,7 @@
 require_once 'models/Address.php';
 require_once 'models/Animal.php';
 require_once 'models/User.php';
-require_once 'tools/arrayOperation.php'
+require_once 'tools/arrayOperation.php';
 
 class Shelter {
   private $idShelter;
