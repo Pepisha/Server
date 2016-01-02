@@ -52,15 +52,15 @@ Serveur de l'application Find Yours Pets.
   - paramètres : page = unfollowAnimal, nickname, idAnimal
   - forme réponse : {'success' => [true]/[false]}
 
+- [x] IsFollowingShelter
+  - paramètres : page = isFollowingShelter, nickname, idShelter
+  - forme réponse : {'following' => [true]/[false]}
+
 - [x] FollowShelter
   - paramètres : page = followShelter, nickname, idShelter
   - forme réponse : {'success' => [true]/[false], 'error' => 'messages erreur'}
 
-- [ ] IsFollowingShelter
-  - paramètres : page = isFollowingShelter, nickname, idShelter
-  - forme réponse : {'following' => [true]/[false]}
-
-- [ ] UnfollowShelter
+- [x] UnfollowShelter
   - paramètres : page = unfollowShelter, nickname, idShelter
   - forme réponse : {'success' => [true]/[false]}
 
