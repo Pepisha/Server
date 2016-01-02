@@ -9,7 +9,7 @@ class Shelter {
   private $phone;
   private $idAddress;
   private $description;
-  private $email;
+  private $mail;
   private $website;
   private $operationalHours;
   private $idFacebook;
@@ -25,7 +25,7 @@ class Shelter {
     $this->phone = $res['phone'];
     $this->idAddress = $res['idAddress'];
     $this->description = $res['description'];
-    $this->email = $res['email'];
+    $this->mail = $res['mail'];
     $this->website = $res["website"];
     $this->operationalHours = $res['operationalHours'];
     $this->idFacebook = $res['idFacebook'];
@@ -39,9 +39,12 @@ class Shelter {
     $shelterArray["phone"] = $this->phone;
     $shelterArray["idAddress"] = intval($this->idAddress);
     $shelterArray["description"] = $this->description;
-    $shelterArray["email"] = $this->email;
+    $shelterArray["mail"] = $this->mail;
     $shelterArray["website"] = $this->website;
     $shelterArray["operationalHours"] = $this->operationalHours;
+    $shelterArray['idFacebook'] = intval($this->idFacebook);
+    $shelterArray['idTwitter'] = intval($this->idTwitter);
+    $shelterArray['idInstagram'] = intval($this->idInstagram);
     $shelterArray["average"] = $this->getOpinionsAverage();
     return $shelterArray;
   }
@@ -53,7 +56,7 @@ class Shelter {
     return $res['idShelter'] === $idShelter;
   }
 
-  public static function addShelterInDataBase($name, $phone, $description, $email, $website, $operationalHours, $street, $zipcode, $city, $latitude, $longitude){
+  public static function addShelterInDataBase($name, $phone, $description, $mail, $website, $operationalHours, $street, $zipcode, $city, $latitude, $longitude){
     $db = DbManager::getPDO();
     $idAddress = Address::addAddress($street, $zipcode, $city, $latitude, $longitude);
 
