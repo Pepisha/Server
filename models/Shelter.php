@@ -197,7 +197,7 @@ class Shelter {
 
   public function getOpinions($numberOfOpinions = null) {
     $db = DbManager::getPDO();
-    $query = "SELECT * FROM Opinion WHERE idShelter = ".$this->idShelter.";";
+    $query = "SELECT * FROM Opinion WHERE idShelter = ".$this->idShelter;
     $res = $db->query($query)->fetchAll();
 
     if($numberOfOpinions !== null && $numberOfOpinions > 0) {
@@ -218,6 +218,19 @@ class Shelter {
     }
 
     return $listOpinions;
+  }
+
+  public function getMessages() {
+    $db = DbManager::getPDO();
+    $query = "SELECT * FROM Message WHERE idShelter = ".$this->idShelter;
+    $res = $db->query($query)->fetchAll();
+
+    for ($i = 0; $i < count($res); $i++) {
+      $message = Message::getMessageArrayFromFetch($res[$i]);
+      $listSheltersMessages[$message['idMessage']] = $message;
+    }
+
+    return $listSheltersMessages;
   }
 
   private function calculateAverage($listAverages) {

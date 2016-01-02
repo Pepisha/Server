@@ -136,9 +136,12 @@ Serveur de l'application Find Yours Pets.
   - forme réponse : {'success' => [true]/[false]}
 
 - [x] AddShelterManager
-  - paramètres : page = AddShelterManager, idShelter, nickname
+  - paramètres : page = addShelterManager, idShelter, nickname
   - forme réponse : {'success' => [true]/[false]}
 
+- [x] GetSheltersMessages
+  - paramètres : page = getSheltersMessages, idShelter
+  - forme réponse : {'idMessage1' => Message, 'idMessage2' => Message, ...}
 
 
 ### Animals

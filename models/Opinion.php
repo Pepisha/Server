@@ -47,7 +47,7 @@ class Opinion {
       $opinionArray["description"] = $opinion['description'];
       $opinionArray["date"] = $opinion['date'];
       $opinionArray["idUser"] = intval($opinion['idUser']);
-      $opinionArray["idShelter"] = intval($res['idShelter']);
+      $opinionArray["idShelter"] = intval($opinion['idShelter']);
       return $opinionArray;
     }
 }
