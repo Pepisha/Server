@@ -125,22 +125,16 @@ class Shelter {
     $query = "SELECT * FROM Animal WHERE idShelter = ".$this->idShelter." AND idState = ".Animal::$STATE_ADOPTION.";";
     $res = $db->query($query)->fetchAll();
 
-    if($numberOfAnimals !== null && $numberOfAnimals > 0) {
-
-      $listAnimals = getRandomNbElements($res, $numberOfAnimals);
-
-      for ($i = 0; $i < count($listAnimals); $i++) {
-        $animal = Animal::getAnimalArrayFromFetch($listAnimals[$i]);
-        $listToReturn[$animal['idAnimal']] = $animal;
-      }
-    } else {
-      for ($i=0; $i<count($res); $i++) {
-        $animal = Animal::getAnimalArrayFromFetch($res[$i]);
-        $listToReturn[$animal['idAnimal']] = $animal;
-      }
+    for ($i=0; $i<count($res); $i++) {
+      $animal = Animal::getAnimalArrayFromFetch($res[$i]);
+      $listAnimals[$animal['idAnimal']] = $animal;
     }
 
-    return $listToReturn;
+    if ($numberOfAnimals !== null && $numberOfAnimals > 0) {
+      $listAnimals = getRandomNbElements($listAnimals, $numberOfAnimals);
+    }
+
+    return $listAnimals;
   }
 
   public function getAdoptedAnimals() {
