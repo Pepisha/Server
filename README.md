@@ -147,9 +147,13 @@ Serveur de l'application Find Yours Pets.
   - paramètres : page = addShelterManager, idShelter, nickname
   - forme réponse : {'success' => [true]/[false]}
 
-- [x] GetSheltersMessages
+- [ ] GetSheltersMessages
   - paramètres : page = getSheltersMessages, idShelter
   - forme réponse : {'idMessage1' => Message, 'idMessage2' => Message, ...}
+
+- [ ] SendMessage
+  - paramètres : sendMessageAboutAnimal,  nickname, content, [idAnimal]
+  - forme réponse : {'success' => [true]/[false], 'error' => 'message erreur'}
 
 
 ### Animals
@@ -182,22 +186,6 @@ Serveur de l'application Find Yours Pets.
   - paramètres : page = getAnimalsOwner, idAnimal
   - forme réponse : {'nickname' => ['nickname owner']/[false]}
 
-- [ ] GetUsersInterestedByAnimal
-  - paramètres : getUsersInterestedByAnimal, idAnimal
-  - forme réponse : {'nickname1' => User, 'nickname2' => User, ...}
-
 - [ ] GetMessagesAboutAnimal
   - paramètres : getMessagesAboutAnimal, idAnimal
-  - forme réponse : {'idMessage1' => Message, 'idMessage2' => message, ...}
-
-- [x] SendMessageAboutAnimal
-  - paramètres : sendMessageAboutAnimal, idAnimal, nickname, content
-  - forme réponse : {'success' => [true]/[false], 'error' => 'message erreur'}
-
-- [x] UserIsInterestedOnAnimal
-  - paramètres : userIsInterestedOnAnimal, nickname, idAnimal
-  - forme réponse : {'success' => [true]/[false], 'error' => 'message erreur'}
-
-- [x] UserIsNotInterestedOnAnimal
-  - paramètres : userIsNotInterestedOnAnimal, nickname, idAnimal
-  - forme réponse : {'success' => [true]/[false], 'error' => 'message erreur'}
+  - forme réponse : {'message1' => Message, 'message2' => Message, ...}
