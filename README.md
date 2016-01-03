@@ -186,6 +186,6 @@ Serveur de l'application Find Yours Pets.
   - paramètres : page = getAnimalsOwner, idAnimal
   - forme réponse : {'nickname' => ['nickname owner']/[false]}
 
-- [ ] GetMessagesAboutAnimal
+- [x] GetMessagesAboutAnimal
   - paramètres : getMessagesAboutAnimal, idAnimal
   - forme réponse : {'message1' => Message, 'message2' => Message, ...}

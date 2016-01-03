@@ -168,6 +168,19 @@ require_once 'models/User.php';
       $res = $db->query($query)->fetch();
       return $res['nickname'];
     }
+
+    public function getMessages() {
+      $db = DbManager::getPDO();
+      $query = "SELECT * FROM Message WHERE idAnimal = ".$this->idAnimal." ORDER BY dateMessage";
+      $res = $db->query($query)->fetchAll();
+
+      for ($i = 0; $i < count($res); $i++) {
+        $message = Message::getMessageArrayFromFetch($res[$i]);
+        $listAnimalsMessages[$message['idMessage']] = $message;
+      }
+
+      return $listAnimalsMessages;
+    }
   }
 
  ?>
