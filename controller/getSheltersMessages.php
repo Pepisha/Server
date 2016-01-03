@@ -4,6 +4,7 @@ require_once 'models/Message.php';
 require_once 'models/Shelter.php';
 
 $shelter = new Shelter($_POST['idShelter']);
-$messages = $shelter->getMessages();
+$messagesAboutShelter = $shelter->getMessages();
+$messagesAboutAnimals = $shelter->getMessagesAboutAnimals();
 
-echo json_encode($messages);
+echo json_encode(['messagesAboutShelter' => $messagesAboutShelter, 'messagesAboutAnimals' => $messagesAboutAnimals]);

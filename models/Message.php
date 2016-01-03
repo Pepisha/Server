@@ -10,6 +10,8 @@ class Message {
     private $dateMessage;
     private $idUser;
     private $idShelter;
+    private $idAnimal;
+    private $read;
 
     public function __construct($idMessage) {
       $db = DbManager::getPDO();
@@ -21,9 +23,11 @@ class Message {
       $this->dateMessage = $res['dateMessage'];
       $this->idUser = $res['idUser'];
       $this->idShelter = $res['idShelter'];
+      $this->idAnimal = $res['idAnimal'];
+      $this->read = $res['read'];
     }
 
-    public static function addMessageInDataBase($content, $idUser, $idShelter) {
+    public static function addMessageInDataBase($content, $idUser, $idShelter, $idAnimal = null) {
       if (!User::isUserExistInDataBase($idUser)) {
         return "Unknown user";
       }
@@ -32,8 +36,8 @@ class Message {
       }
       else {
         $db = DbManager::getPDO();
-        $query = "INSERT INTO Message(content, dateMessage, idUser, idShelter) "
-                ."VALUES ('".$content."',NOW(),".$idUser.",".$idShelter.")";
+        $query = "INSERT INTO Message(content, dateMessage, idUser, idShelter, idAnimal) "
+                ."VALUES ('".$content."',NOW(),".$idUser.",".$idShelter.",".$idAnimal.")";
         return ($db->exec($query) >= 0);
       }
     }
@@ -44,6 +48,8 @@ class Message {
       $messageArray["dateMessage"] = $message['dateMessage'];
       $messageArray["idUser"] = intval($message['idUser']);
       $messageArray["idShelter"] = intval($message['idShelter']);
+      $messageArray["idAnimal"] = intval($message['idAnimal']);
+      $messageArray["read"] = boolval($message['read']);
       return $messageArray;
     }
 }
