@@ -7,10 +7,7 @@ require_once 'models/Message.php';
 $user = new User($_POST['nickname']);
 $animal = new Animal($_POST['idAnimal']);
 
-$setResult =  $user->setInterestedOnAnimal($_POST['idAnimal']);
-if ($setResult) {
-	$addingResult = $user->sendMessageToShelter(addslashes($_POST['content']), $animal->getShelter());
-}
+$addingResult = $user->sendMessage(addslashes($_POST['content']), $animal->getShelter(), $animal->getId());
 
 $result = ['success' => ($setResult && $addingResult)];
 echo json_encode($result);

@@ -151,8 +151,8 @@ Serveur de l'application Find Yours Pets.
   - paramètres : page = getSheltersMessages, idShelter
   - forme réponse : {'idMessage1' => Message, 'idMessage2' => Message, ...}
 
-- [ ] SendMessage
-  - paramètres : sendMessageAboutAnimal,  nickname, content, [idAnimal]
+- [x] SendMessage
+  - paramètres : sendMessage,  nickname, content, [idAnimal]
   - forme réponse : {'success' => [true]/[false], 'error' => 'message erreur'}
 
 

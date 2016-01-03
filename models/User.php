@@ -393,8 +393,8 @@ class User {
     return ($db->exec($query) >= 0);
   }
 
-  public function sendMessageToShelter($content, $idShelter) {
-    return Message::addMessageInDataBase($content, $this->idUser, $idShelter);
+  public function sendMessage($content, $idShelter, $idAnimal = null) {
+    return Message::addMessageInDataBase($content, $this->idUser, $idShelter, $idAnimal);
   }
 
   public function setInterestedOnAnimal($idAnimal) {
@@ -412,4 +412,6 @@ class User {
     $query = "DELETE FROM IsInterestedBy WHERE idUser = ".$this->idUser." AND idAnimal = " . $idAnimal;
     return $db->exec($query) > 0;
   }
+
+
 }

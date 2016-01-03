@@ -46,6 +46,10 @@ require_once 'models/User.php';
       return $this->idShelter;
     }
 
+    public function getId() {
+      return $this->idAnimal;
+    }
+
     /**
      * @return true si l'animal est présent dans la BDD, false sinon.
      */
