@@ -147,9 +147,10 @@ Serveur de l'application Find Yours Pets.
   - paramètres : page = addShelterManager, idShelter, nickname
   - forme réponse : {'success' => [true]/[false]}
 
-- [x] GetAllSheltersMessages
+- [x] GetSheltersMessages
   - paramètres : page = getSheltersMessages, idShelter
-  - forme réponse : {'idMessage1' => Message, 'idMessage2' => Message, ...}
+  - forme réponse : {'messagesAboutShelter' => {'idMessage1' => Message, 'idMessage2' => Message, ...},
+                      'messagesAboutAnimals' => {'idMessage1' => Message, 'idMessage2' => Message, ...}}
 
 - [x] SendMessage
   - paramètres : sendMessage,  nickname, content, [idAnimal]
@@ -162,9 +163,9 @@ Serveur de l'application Find Yours Pets.
   - paramètres : page = getHomelessAnimals, nickname, [catsFriend], [dogsFriend], [childrenFriend]
   - forme réponse : {'idAnimal1' => Animal, 'idAnimal2' => Animal, ...}
 
-- [x] GetAnimal
+- [x] getAnimalInformations
   - paramètres : page = getAnimal, idAnimal, nickname
-  - forme réponse : {'idAnimal' => Animal }
+  - forme réponse : {'animal' => Animal }
 
 - [x] ChangeAnimalsStatus
   - paramètres : page = changeAnimalsStatus, idAnimal, newStatus, nickname

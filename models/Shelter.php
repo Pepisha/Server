@@ -223,7 +223,7 @@ class Shelter {
    */
   public function getMessages() {
     $db = DbManager::getPDO();
-    $query = "SELECT * FROM Message WHERE idShelter = ".$this->idShelter." AND idAnimal = null ORDER BY dateMessage";
+    $query = "SELECT * FROM Message WHERE idShelter = ".$this->idShelter." AND idAnimal IS NULL ORDER BY dateMessage";
     $res = $db->query($query)->fetchAll();
 
     for ($i = 0; $i < count($res); $i++) {
@@ -237,9 +237,9 @@ class Shelter {
   /**
    * @return la liste des messages sur des animaux du refuge
    */
-  public getMessagesAboutAnimals() {
+  public function getMessagesAboutAnimals() {
     $db = DbManager::getPDO();
-    $query = "SELECT * FROM Message WHERE idShelter = ".$this->idShelter." AND idAnimal != null ORDER BY dateMessage";
+    $query = "SELECT * FROM Message WHERE idShelter = ".$this->idShelter." AND idAnimal IS NOT NULL ORDER BY dateMessage";
     $res = $db->query($query)->fetchAll();
 
     for ($i = 0; $i < count($res); $i++) {
