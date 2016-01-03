@@ -33,8 +33,20 @@ class User {
     return $this->idUser;
   }
 
+  public function getNickname() {
+    return $this->nickname;
+  }
+
   public function getAdmin() {
     return $this->admin;
+  }
+
+  public static function getNicknameFromId($idUser) {
+    $db = DbManager::getPDO();
+    $query = "SELECT nickname FROM User WHERE idUser = ".$idUser;
+    $res = $db->query($query)->fetch();
+
+    return $res['nickname'];
   }
 
   public function getUsersInformationsArray() {

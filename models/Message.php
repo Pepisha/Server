@@ -1,6 +1,7 @@
 <?php
 
 require_once 'models/User.php';
+require_once 'models/Animal.php';
 require_once 'models/Shelter.php';
 
 class Message {
@@ -46,10 +47,16 @@ class Message {
       $messageArray["idMessage"] = intval($message["idMessage"]);
       $messageArray["content"] = $message['content'];
       $messageArray["dateMessage"] = $message['dateMessage'];
-      $messageArray["idUser"] = intval($message['idUser']);
+      $messageArray["nickname"] = User::getNicknameFromId($message['idUser']);
       $messageArray["idShelter"] = intval($message['idShelter']);
       $messageArray["idAnimal"] = intval($message['idAnimal']);
       $messageArray["read"] = boolval($message['read']);
+
+      if (!is_null($message['idAnimal'])) {
+        $animal = new Animal($message['idAnimal']);
+        $messageArray["animalName"] = $animal->getName();
+      }
+
       return $messageArray;
     }
 }
