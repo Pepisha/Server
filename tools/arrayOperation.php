@@ -1,21 +1,20 @@
 <?php
 
 function getRandomNbElements($listElements, $nbElements) {
-   $listToReturn;
-    if($listElements !== null && $nbElements > 0 && $nbElements <= count($listElements)) {
-      $i = 0;
-      while ($i < count($listElements) && $i < $nbElements) {
-        $indexElement = rand(0, count($listElements)-1);
+    if ($listElements === null || $nbElements <= 0) {
+      return null;
+    }
 
-        $listToReturn[] = $listElements[$i];
-        array_splice($listElements, $indexElement, 1);
+    if ($nbElements <= count($listElements)) {
+      $listToReturn = array();
 
-        $i++;
+      $keys = array_rand($listElements, $nbElements);
+      foreach ($keys as $key) {
+        $listToReturn[$key] = $listElements[$key];
       }
 
       return $listToReturn;
-  } else if($nbElements > count($listElements)){
-    return $listElements;
-  }
-  return null;
+    } else {
+      return $listElements;
+    }
 }
