@@ -14,6 +14,7 @@ require_once 'models/User.php';
     private $description;
     private $state;
     private $idShelter;
+    private $favorite;
 
     public static $STATE_ADOPTED = 2;
     public static $STATE_ADOPTION = 1;
@@ -36,6 +37,7 @@ require_once 'models/User.php';
       $this->description = $res['description'];
       $this->state = $res['idState'];
       $this->idShelter = $res['idShelter'];
+      $this->favorite = $res['favorite'];
     }
 
     public function getName() {
@@ -107,6 +109,7 @@ require_once 'models/User.php';
       $animalArray["idState"] = intval($animal["idState"]);
       $animalArray["photo"] = Animal::getPhoto($animal["idAnimal"]);
       $animalArray["idShelter"] = intval($animal["idShelter"]);
+      $animalArray["favorite"] = boolval($animal["favorite"]);
       return $animalArray;
     }
 
@@ -159,6 +162,7 @@ require_once 'models/User.php';
       $animalArray["idState"] = intval($this->idState);
       $animalArray["photo"] = Animal::getPhoto($this->idAnimal);
       $animalArray["idShelter"] = intval($this->idShelter);
+      $animalArray["favorite"] = boolval($this->favorite);
       return $animalArray;
     }
 
@@ -184,6 +188,12 @@ require_once 'models/User.php';
       }
 
       return $listAnimalsMessages;
+    }
+
+    public function setFavorite($fav) {
+      $db = DbManager::getPDO();
+      $query = "UPDATE Animal SET favorite = " . ($fav) ? "1" : "0" . " WHERE idAnimal = ".$this->idAnimal;
+      return ($db->exec($query) >= 0);
     }
   }
 
