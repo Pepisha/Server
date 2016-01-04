@@ -193,3 +193,7 @@ Serveur de l'application Find Yours Pets.
 - [x] GetMessagesAboutAnimal
   - paramètres : getMessagesAboutAnimal, idAnimal
   - forme réponse : {'message1' => Message, 'message2' => Message, ...}
+
+- [x] SetAnimalFavorite
+  - paramètres : setAnimalFavorite, idAnimal, favorite
+  - forme réponse : {'success' => [true]/[false]}
