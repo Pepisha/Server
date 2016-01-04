@@ -157,7 +157,7 @@ require_once 'models/User.php';
       $animalArray["childrenFriend"] = floatval($this->childrenFriend);
       $animalArray["description"] = $this->description;
       $animalArray["idState"] = intval($this->idState);
-      $animalArray["photo"] = getPhoto($this->idAnimal);
+      $animalArray["photo"] = Animal::getPhoto($this->idAnimal);
       $animalArray["idShelter"] = intval($this->idShelter);
       return $animalArray;
     }

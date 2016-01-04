@@ -12,11 +12,11 @@ class Message {
     private $idUser;
     private $idShelter;
     private $idAnimal;
-    private $read;
+    private $messageRead;
 
     public function __construct($idMessage) {
       $db = DbManager::getPDO();
-      $query = "SELECT * FROM Message WHERE idMessage = ".$idMessage."";
+      $query = "SELECT * FROM Message WHERE idMessage = ".$idMessage;
       $res = $db->query($query)->fetch();
 
       $this->idMessage = $res['idMessage'];
@@ -25,7 +25,7 @@ class Message {
       $this->idUser = $res['idUser'];
       $this->idShelter = $res['idShelter'];
       $this->idAnimal = $res['idAnimal'];
-      $this->read = $res['read'];
+      $this->messageRead = $res['messageRead'];
     }
 
     public static function addMessageInDataBase($content, $idUser, $idShelter, $idAnimal = null) {
@@ -50,7 +50,7 @@ class Message {
       $messageArray["nickname"] = User::getNicknameFromId($message['idUser']);
       $messageArray["idShelter"] = intval($message['idShelter']);
       $messageArray["idAnimal"] = intval($message['idAnimal']);
-      $messageArray["read"] = boolval($message['read']);
+      $messageArray["messageRead"] = boolval($message['messageRead']);
 
       if (!is_null($message['idAnimal'])) {
         $animal = new Animal($message['idAnimal']);
@@ -58,5 +58,11 @@ class Message {
       }
 
       return $messageArray;
+    }
+
+    public function setRead() {
+      $db = DbManager::getPDO();
+      $query = "UPDATE Message SET messageRead = 1 WHERE idMessage = ".$this->idMessage;
+      $db->exec($query);
     }
 }

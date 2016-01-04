@@ -153,8 +153,11 @@ Serveur de l'application Find Yours Pets.
                       'messagesAboutAnimals' => {'idMessage1' => Message, 'idMessage2' => Message, ...}}
 
 - [x] SendMessage
-  - paramètres : sendMessage,  nickname, content, [idAnimal]
+  - paramètres : page = sendMessage,  nickname, content, [idAnimal]
   - forme réponse : {'success' => [true]/[false], 'error' => 'message erreur'}
+
+- [x] SetMessageRead
+  - paramètres : page = setMessageRead,  idMessage
 
 
 ### Animals
