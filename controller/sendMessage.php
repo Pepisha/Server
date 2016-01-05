@@ -5,9 +5,17 @@ require_once 'models/Animal.php';
 require_once 'models/Message.php';
 
 $user = new User($_POST['nickname']);
-$animal = new Animal($_POST['idAnimal']);
 
-$addingResult = $user->sendMessage(addslashes($_POST['content']), $animal->getShelter(), $animal->getId());
+if (isset($_POST['idAnimal'])) {
+	$animal = new Animal($_POST['idAnimal']);
+	$idShelter = $animal->getShelter();
+	$idAnimal = $animal->getId();
+} else {
+	$idShelter = $_POST['idShelter'];
+	$idAnimal = null;
+}
 
-$result = ['success' => ($setResult && $addingResult)];
+$addingResult = $user->sendMessage(addslashes($_POST['content']), $idShelter, $idAnimal);
+
+$result = ['success' => $addingResult];
 echo json_encode($result);

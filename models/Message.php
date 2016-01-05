@@ -29,16 +29,20 @@ class Message {
     }
 
     public static function addMessageInDataBase($content, $idUser, $idShelter, $idAnimal = null) {
-      if (!User::isUserExistInDataBase($idUser)) {
-        return "Unknown user";
-      }
-      elseif (!Shelter::isShelterExistInDataBase($idShelter)) {
+      if (!Shelter::isShelterExistInDataBase($idShelter)) {
         return "Unknown shelter";
       }
       else {
         $db = DbManager::getPDO();
-        $query = "INSERT INTO Message(content, dateMessage, idUser, idShelter, idAnimal) "
+
+        if (is_null($idAnimal)) {
+          $query = "INSERT INTO Message(content, dateMessage, idUser, idShelter) "
+                ."VALUES ('".$content."',NOW(),".$idUser.",".$idShelter.")";
+        } else {
+          $query = "INSERT INTO Message(content, dateMessage, idUser, idShelter, idAnimal) "
                 ."VALUES ('".$content."',NOW(),".$idUser.",".$idShelter.",".$idAnimal.")";
+        }
+
         return ($db->exec($query) >= 0);
       }
     }
