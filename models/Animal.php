@@ -192,7 +192,7 @@ require_once 'models/User.php';
 
     public function setFavorite($fav) {
       $db = DbManager::getPDO();
-      $query = "UPDATE Animal SET favorite = " . ($fav) ? "1" : "0" . " WHERE idAnimal = ".$this->idAnimal;
+      $query = "UPDATE Animal SET favorite = " . ($fav === "true" ? "1" : "0") . " WHERE idAnimal = ".$this->idAnimal;
       return ($db->exec($query) >= 0);
     }
   }
