@@ -150,7 +150,7 @@ require_once 'models/User.php';
 
     public function getInformations() {
       $animalArray["idAnimal"] = intval($this->idAnimal);
-      $animalArray["idType"] = intval($this->idType);
+      $animalArray["idType"] = intval($this->type);
       $animalArray["name"] = $this->name;
       $animalArray["breed"] = $this->breed;
       $animalArray["age"] = $this->age;
