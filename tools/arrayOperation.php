@@ -9,8 +9,13 @@ function getRandomNbElements($listElements, $nbElements) {
       $listToReturn = array();
 
       $keys = array_rand($listElements, $nbElements);
-      foreach ($keys as $key) {
-        $listToReturn[$key] = $listElements[$key];
+
+      if(is_array($keys)) {
+        foreach ($keys as $key) {
+          $listToReturn[$key] = $listElements[$key];
+        }
+      } else {
+        $listToReturn[$keys] = $listElements[$keys];
       }
 
       return $listToReturn;

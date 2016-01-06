@@ -472,7 +472,9 @@ class User {
       $listAnimals[$animal['idAnimal']] = $animal;
     }
 
+    $listAnimals = $this->setFollowedAnimals($listAnimals);
     $randAnimal = getRandomNbElements($listAnimals, 1);
+
     return current($randAnimal);
   }
 }
