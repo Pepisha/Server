@@ -405,6 +405,34 @@ class User {
     return ($db->exec($query) >= 0);
   }
 
+  public function changeAnimalUserPreferences($catsFriend, $dogsFriend, $childrenFriend, $idType) {
+    $newListAnimals = Animal::getHomelessAnimals($idType, $catsFriend, $dogsFriend, $childrenFriend);
+
+    $db = DbManager::getPDO();
+    $query = "SELECT * FROM AnimalUserPreferences WHERE idUser = " . $this->idUser;
+    $res = $db->query($query);
+
+    // Pour chaque ancien animal correspondant
+    while ($row = $res->fetch()) {
+
+      // On regarde s'il est dans la nouvelle liste
+      foreach ($newListAnimals as $idAnimal => $animal) {
+        if ($row['idAnimal'] == $idAnimal) {
+          $newListAnimals[$idAnimal]['seen'] = $row['seen'];
+        }
+      }
+    }
+
+    $query = "DELETE FROM AnimalUserPreferences WHERE idUser = " . $this->idUser;
+    $db->exec($query);
+
+    foreach ($newListAnimals as $idAnimal => $animal) {
+      $query = "INSERT INTO AnimalUserPreferences (idUser, idAnimal, seen) VALUES ("
+                .$this->idUser.",".$idAnimal.",".$animal['seen'].")";
+      $db->exec($query);
+    }
+  }
+
   public function sendMessage($content, $idShelter, $idAnimal = null) {
     return Message::addMessageInDataBase($content, $this->idUser, $idShelter, $idAnimal);
   }
