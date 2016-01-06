@@ -9,6 +9,7 @@ $childrenFriend = (isset($_POST['childrenFriend'])) ? $_POST['childrenFriend'] :
 $idType = (isset($_POST['idType'])) ? $_POST['idType'] : NULL;
 
 $setResult = $user->setPetsPreferences($catsFriend, $dogsFriend, $childrenFriend, $idType);
+$user->changeAnimalUserPreferences($catsFriend, $dogsFriend, $childrenFriend, $idType);
 
 $result = ['success' => $setResult];
 echo json_encode($result);
