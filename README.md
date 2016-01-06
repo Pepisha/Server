@@ -96,6 +96,9 @@ Serveur de l'application Find Yours Pets.
   - paramètres : page = getAnimalCorrespondingToUserPreferences, nickname
   - forme réponse : {'animal' => Animal}
 
+- [x] HaveSeenAnimal
+  - paramètres : page = haveSeenAnimal, nickname, idAnimal
+
 
 ### Shelters
 
@@ -161,7 +164,7 @@ Serveur de l'application Find Yours Pets.
   - forme réponse : {'success' => [true]/[false], 'error' => 'message erreur'}
 
 - [x] SetMessageRead
-  - paramètres : page = setMessageRead,  idMessage
+  - paramètres : page = setMessageRead, idMessage
 
 
 ### Animals

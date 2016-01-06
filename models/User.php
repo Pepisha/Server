@@ -478,4 +478,10 @@ class User {
 
     return current($randAnimal);
   }
+
+  public function haveSeenAnimal($idAnimal) {
+    $db = DbManager::getPDO();
+    $query = "UPDATE AnimalUserPreferences SET seen = 1 WHERE idUser = ".$this->idUser." AND idAnimal = ".$idAnimal;
+    $db->exec($query);
+  }
 }
