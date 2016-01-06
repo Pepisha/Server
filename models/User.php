@@ -427,8 +427,14 @@ class User {
     $db->exec($query);
 
     foreach ($newListAnimals as $idAnimal => $animal) {
-      $query = "INSERT INTO AnimalUserPreferences (idUser, idAnimal, seen) VALUES ("
+      if (is_null($animal['seen'])) {
+        $query = "INSERT INTO AnimalUserPreferences (idUser, idAnimal) VALUES ("
+                .$this->idUser.",".$idAnimal.")";
+      } else {
+        $query = "INSERT INTO AnimalUserPreferences (idUser, idAnimal, seen) VALUES ("
                 .$this->idUser.",".$idAnimal.",".$animal['seen'].")";
+      }
+
       $db->exec($query);
     }
   }
