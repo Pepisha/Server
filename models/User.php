@@ -459,7 +459,7 @@ class User {
               WHERE aup.idAnimal = a.idAnimal
               AND aup.idUser = ".$this->idUser."
               AND seen = false";
-    $res = $db->exec($query)->fetchAll();
+    $res = $db->query($query)->fetchAll();
 
     for ($i=0; $i < count($res); $i++) {
       $animal = Animal::getAnimalArrayFromFetch($res[$i]);
