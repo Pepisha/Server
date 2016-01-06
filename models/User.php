@@ -322,7 +322,8 @@ class User {
 
   public function getFollowedShelters() {
     $db = DbManager::getPDO();
-    $query = "SELECT * FROM Shelter s, FollowShelter fs WHERE s.idShelter = fs.idShelter AND fs.idUser = ".$this->idUser.";";
+    $query = "SELECT * FROM Shelter s, Address a, FollowShelter fs "
+            . "WHERE s.idAddress = a.idAddress AND s.idShelter = fs.idShelter AND fs.idUser = ".$this->idUser;
     $res = $db->query($query)->fetchAll();
     for($i = 0; i < count($res); $i++) {
       $shelter = Shelter::getShelterArrayFromFetch($res[$i]);
