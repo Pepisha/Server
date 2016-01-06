@@ -92,7 +92,7 @@ Serveur de l'application Find Yours Pets.
   - paramètres : page = getHomePageAnimals, nickname, [numberOfAnimals]
   - forme réponse : {'followedAnimals' => ['idAnimal1' => Animal, 'idAnimal2' => Animal, ...], 'suggestedAnimals' => ['idAnimal1'=> Animal, 'idAnimal2' => Animal, ...]}
 
-- [ ] GetAnimalCorrespondingToUserPreferences
+- [x] GetAnimalCorrespondingToUserPreferences
   - paramètres : page = getAnimalCorrespondingToUserPreferences, nickname
   - forme réponse : {'animal' => Animal}
 

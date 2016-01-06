@@ -425,5 +425,20 @@ class User {
     return $db->exec($query) > 0;
   }
 
+  public function getAnimalCorrespondingToUserPreferences() {
+    $db = DbManager::getPDO();
+    $query = "SELECT * FROM AnimalUserPreferences aup, Animal a
+              WHERE aup.idAnimal = a.idAnimal
+              AND aup.idUser = ".$this->idUser."
+              AND seen = false";
+    $res = $db->exec($query)->fetchAll();
 
+    for ($i=0; $i < count($res); $i++) {
+      $animal = Animal::getAnimalArrayFromFetch($res[$i]);
+      $listAnimals[$animal['idAnimal']] = $animal;
+    }
+
+    $randAnimal = getRandomNbElements($listAnimals, 1);
+    return current($randAnimal);
+  }
 }
