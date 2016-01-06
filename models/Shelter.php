@@ -9,6 +9,7 @@ class Shelter {
   private $name;
   private $phone;
   private $idAddress;
+  private $address;
   private $description;
   private $mail;
   private $website;
@@ -16,12 +17,13 @@ class Shelter {
 
   public function __construct($idShelter) {
     $db = DbManager::getPDO();
-    $query = "SELECT * FROM Shelter WHERE idShelter = '".$idShelter."';";
+    $query = "SELECT * FROM Shelter s, Address a WHERE s.idAddress = a.idAddress AND idShelter = ".$idShelter;
     $res = $db->query($query)->fetch();
     $this->idShelter = $res['idShelter'];
     $this->name = $res['name'];
     $this->phone = $res['phone'];
     $this->idAddress = $res['idAddress'];
+    $this->address = $res['street'] . " " . $res['zipcode'] . " " . $res['city'];
     $this->description = $res['description'];
     $this->mail = $res['mail'];
     $this->website = $res["website"];
@@ -32,7 +34,7 @@ class Shelter {
     $shelterArray["idShelter"] = intval($this->idShelter);
     $shelterArray["name"] = $this->name;
     $shelterArray["phone"] = $this->phone;
-    $shelterArray["idAddress"] = intval($this->idAddress);
+    $shelterArray["address"] = $this->address;
     $shelterArray["description"] = $this->description;
     $shelterArray["mail"] = $this->mail;
     $shelterArray["website"] = $this->website;
@@ -92,7 +94,7 @@ class Shelter {
     $arrayShelter["idShelter"] = intval($shelter["idShelter"]);
     $arrayShelter["name"] = $shelter["name"];
     $arrayShelter["phone"] = $shelter["phone"];
-    $arrayShelter["idAddress"] = intval($shelter["idAddress"]);
+    $arrayShelter["address"] = $shelter['street'] . " " . $shelter['zipcode'] . " " . $shelter['city'];
     $arrayShelter["description"] = $shelter["description"];
     $arrayShelter["mail"] = $shelter["mail"];
     $arrayShelter["website"] = $shelter["website"];
@@ -102,7 +104,7 @@ class Shelter {
 
   public static function getAllShelters() {
     $db = DbManager::getPDO();
-    $query = "SELECT * FROM Shelter;";
+    $query = "SELECT * FROM Shelter s, Address a WHERE s.idAddress = a.idAddress";
     $res = $db->query($query)->fetchAll();
 
     for ($i=0; $i<count($res); $i++) {
