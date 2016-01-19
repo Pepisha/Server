@@ -71,13 +71,13 @@ require_once 'models/User.php';
       if(User::isUserExistInDataBase($nickname)) {
 
         $user = new User($nickname);
-        $query = "UPDATE Animal SET idState = ".$newStatus.", idOwner = ".$user->getId()."  WHERE idAnimal = ".$this->idAnimal.";";
+        $query = "UPDATE Animal SET idState = ".$newStatus.", idOwner = ".$user->getId().", favorite = 0 WHERE idAnimal = ".$this->idAnimal;
       } else {
-        $query = "UPDATE Animal SET idState = ".$newStatus.", idOwner = NULL WHERE idAnimal = ".$this->idAnimal.";";
+        $query = "UPDATE Animal SET idState = ".$newStatus.", idOwner = NULL WHERE idAnimal = ".$this->idAnimal;
       }
 
       $db = DbManager::getPDO();
-     if ($db->exec($query) >= 0) {
+      if ($db->exec($query) >= 0) {
         return true;
       }
       return false;
@@ -89,6 +89,12 @@ require_once 'models/User.php';
       $res = $db->query($query)->fetch();
 
       return $res['name'];
+    }
+
+    public static function hasMessages($idAnimal) {
+      $db = DbManager::getPDO();
+      $query = "SELECT idAnimal FROM Message WHERE idAnimal = " . $idAnimal;
+      return $db->query($query)->fetch();
     }
 
     /**
@@ -110,6 +116,7 @@ require_once 'models/User.php';
       $animalArray["photo"] = Animal::getPhoto($animal["idAnimal"]);
       $animalArray["idShelter"] = intval($animal["idShelter"]);
       $animalArray["favorite"] = boolval($animal["favorite"]);
+      $animalArray["messages"] = boolval(Animal::hasMessages($animal["idAnimal"]));
       return $animalArray;
     }
 
@@ -163,6 +170,7 @@ require_once 'models/User.php';
       $animalArray["photo"] = Animal::getPhoto($this->idAnimal);
       $animalArray["idShelter"] = intval($this->idShelter);
       $animalArray["favorite"] = boolval($this->favorite);
+      $animalArray["messages"] = boolval(Animal::hasMessages($this->idAnimal));
       return $animalArray;
     }
 
