@@ -306,14 +306,16 @@ class User {
   }
 
   public function setFollowedAnimals($animalsList) {
-    foreach ($animalsList as $idAnimal => $animal) {
-      $db = DbManager::getPDO();
-      $query = "SELECT * FROM FollowAnimal WHERE idAnimal = ".$idAnimal." AND idUser = ".$this->idUser;
-      $res = $db->query($query)->fetch();
-      if ($res) {
-        $animalsList[$idAnimal]['followed'] = true;
-      } else {
-        $animalsList[$idAnimal]['followed'] = false;
+    if (!is_null($animalsList) && is_array($animalsList)) {
+      foreach ($animalsList as $idAnimal => $animal) {
+        $db = DbManager::getPDO();
+        $query = "SELECT * FROM FollowAnimal WHERE idAnimal = ".$idAnimal." AND idUser = ".$this->idUser;
+        $res = $db->query($query)->fetch();
+        if ($res) {
+          $animalsList[$idAnimal]['followed'] = true;
+        } else {
+          $animalsList[$idAnimal]['followed'] = false;
+        }
       }
     }
 
