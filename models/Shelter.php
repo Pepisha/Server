@@ -269,7 +269,7 @@ class Shelter {
 
   public function getOpinionsAverage() {
     $db = DbManager::getPDO();
-    $query = "SELECT stars FROM Opinion WHERE idShelter = ".$this->idShelter.";";
+    $query = "SELECT stars FROM Opinion WHERE idShelter = ".$this->idShelter;
     $listAverages = $db->query($query)->fetchAll();
 
     return $this->calculateAverage($listAverages);
