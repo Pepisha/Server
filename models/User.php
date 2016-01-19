@@ -468,15 +468,19 @@ class User {
               AND seen = false";
     $res = $db->query($query)->fetchAll();
 
-    for ($i=0; $i < count($res); $i++) {
-      $animal = Animal::getAnimalArrayFromFetch($res[$i]);
-      $listAnimals[$animal['idAnimal']] = $animal;
+    if (count($res) > 0) {
+      for ($i=0; $i < count($res); $i++) {
+        $animal = Animal::getAnimalArrayFromFetch($res[$i]);
+        $listAnimals[$animal['idAnimal']] = $animal;
+      }
+
+      $listAnimals = $this->setFollowedAnimals($listAnimals);
+      $randAnimal = getRandomNbElements($listAnimals, 1);
+
+      return current($randAnimal);
     }
 
-    $listAnimals = $this->setFollowedAnimals($listAnimals);
-    $randAnimal = getRandomNbElements($listAnimals, 1);
-
-    return current($randAnimal);
+    return null;
   }
 
   public function haveSeenAnimal($idAnimal) {
