@@ -52,7 +52,7 @@ class News {
 
   public static function getAnimalsNews($idAnimal) {
     $db = DbManager::getPDO();
-    $query = "SELECT * FROM News WHERE idAnimal = ".$idAnimal.";";
+    $query = "SELECT * FROM News WHERE idAnimal = ".$idAnimal." ORDER BY dateNews DESC";
     $res = $db->query($query)->fetchAll();
 
     for($i = 0; $i < count($res); $i++) {
