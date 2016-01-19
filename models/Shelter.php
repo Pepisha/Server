@@ -55,7 +55,7 @@ class Shelter {
     $idAddress = Address::addAddress($street, $zipcode, $city, $latitude, $longitude);
 
     $query = "INSERT INTO Shelter(name, phone, idAddress, description, mail, website, operationalHours )
-              VALUES ('".$name."','".$phone."','".$idAddress."','".$description."','".$mail."','".$website."','".$operationalHours."')";
+              VALUES ('".$name."','".$phone."','".$idAddress."','".addslashes($description)."','".$mail."','".$website."','".$operationalHours."')";
     return $db->exec($query);
   }
 
