@@ -71,13 +71,13 @@ require_once 'models/User.php';
       if(User::isUserExistInDataBase($nickname)) {
 
         $user = new User($nickname);
-        $query = "UPDATE Animal SET idState = ".$newStatus.", idOwner = ".$user->getId()."  WHERE idAnimal = ".$this->idAnimal.";";
+        $query = "UPDATE Animal SET idState = ".$newStatus.", idOwner = ".$user->getId().", favorite = 0 WHERE idAnimal = ".$this->idAnimal;
       } else {
-        $query = "UPDATE Animal SET idState = ".$newStatus.", idOwner = NULL WHERE idAnimal = ".$this->idAnimal.";";
+        $query = "UPDATE Animal SET idState = ".$newStatus.", idOwner = NULL WHERE idAnimal = ".$this->idAnimal;
       }
 
       $db = DbManager::getPDO();
-     if ($db->exec($query) >= 0) {
+      if ($db->exec($query) >= 0) {
         return true;
       }
       return false;
