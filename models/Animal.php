@@ -91,6 +91,12 @@ require_once 'models/User.php';
       return $res['name'];
     }
 
+    public static function hasMessages($idAnimal) {
+      $db = DbManager::getPDO();
+      $query = "SELECT idAnimal FROM Message WHERE idAnimal = " . $idAnimal;
+      return $db->query($query)->fetch();
+    }
+
     /**
      * @return transforme le résultat du fetch d'un animal en un tableau contenant
      *         les informations de l'animal pour ensuite le transmettre au client
@@ -110,6 +116,7 @@ require_once 'models/User.php';
       $animalArray["photo"] = Animal::getPhoto($animal["idAnimal"]);
       $animalArray["idShelter"] = intval($animal["idShelter"]);
       $animalArray["favorite"] = boolval($animal["favorite"]);
+      $animalArray["messages"] = boolval(Animal::hasMessages($animal["idAnimal"]));
       return $animalArray;
     }
 
@@ -163,6 +170,7 @@ require_once 'models/User.php';
       $animalArray["photo"] = Animal::getPhoto($this->idAnimal);
       $animalArray["idShelter"] = intval($this->idShelter);
       $animalArray["favorite"] = boolval($this->favorite);
+      $animalArray["messages"] = boolval(Animal::hasMessages($this->idAnimal));
       return $animalArray;
     }
 
