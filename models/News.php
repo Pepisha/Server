@@ -20,10 +20,15 @@ class News {
 
   public static function getLastNewsFromAnimal($idAnimal) {
     $db = DbManager::getPDO();
-    $query = "SELECT idNews, description, idAnimal, dateNews, MAX(dateNews) FROM News WHERE idAnimal = ".$idAnimal;
+    $query = "SELECT idNews, description, idAnimal, dateNews FROM News WHERE idAnimal = ".$idAnimal
+            ." ORDER BY dateNews DESC LIMIT 1";
     $res = $db->query($query)->fetch();
 
-    return News::getNewsArrayFromFetch($res);
+    if ($res) {
+      return News::getNewsArrayFromFetch($res);
+    }
+
+    return null;
   }
 
   public static function addNewsInDataBase($description, $idAnimal) {
